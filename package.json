@@ -13,6 +13,7 @@
     "next": "latest",
     "next-redux-saga": "4.0.0",
     "next-redux-wrapper": "2.0.0",
+    "normalizr": "^3.4.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-redux": "5.0.7",
