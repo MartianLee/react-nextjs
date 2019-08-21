@@ -16,7 +16,7 @@ function ProductList  ({
         <div>
             <section className="cards">
             {!!productData ?  productData.map(product => (
-                <Product product={product} />
+                <Product key={product.id} product={product} />
             )) : null}
             </section>
             <style jsx>{` 
