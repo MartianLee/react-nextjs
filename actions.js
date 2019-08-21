@@ -4,7 +4,9 @@ export const actionTypes = {
   DECREMENT: 'DECREMENT',
   RESET: 'RESET',
   LOAD_DATA: 'LOAD_DATA',
+  LOAD_PRODUCT_DATA: 'LOAD_PRODUCT_DATA',
   LOAD_DATA_SUCCESS: 'LOAD_DATA_SUCCESS',
+  LOAD_PRODUCT_DATA_SUCCESS: 'LOAD_PRODUCT_DATA_SUCCESS',
   START_CLOCK: 'START_CLOCK',
   TICK_CLOCK: 'TICK_CLOCK'
 }
@@ -32,9 +34,20 @@ export function loadData () {
   return { type: actionTypes.LOAD_DATA }
 }
 
+export function loadProductData () {
+  return { type: actionTypes.LOAD_PRODUCT_DATA }
+}
+
 export function loadDataSuccess (data) {
   return {
     type: actionTypes.LOAD_DATA_SUCCESS,
+    data
+  }
+}
+
+export function loadProductDataSuccess (data) {
+  return {
+    type: actionTypes.LOAD_PRODUCT_DATA_SUCCESS,
     data
   }
 }

@@ -3,6 +3,10 @@ import { connect } from 'react-redux'
 
 import Counter from './counter'
 import Clock from './clock'
+import Header from './header'
+import Nav from '../components/nav'
+import ProductList from "./ProductList";
+import React from "react";
 
 function Page ({
   error,
@@ -11,18 +15,17 @@ function Page ({
   linkTo,
   NavigateTo,
   placeholderData,
+  productData,
   title
 }) {
   return (
     <div>
-      <h1>{title}</h1>
+      <Nav url={['posts','products']}/>
+      <Header title={'Squared'}/>
+      <ProductList product={productData}/>
       <Clock lastUpdate={lastUpdate} light={light} />
       <Counter />
-      <nav>
-        <Link href={linkTo}>
-          <a>Navigate: {NavigateTo}</a>
-        </Link>
-      </nav>
+
       {placeholderData && (
         <pre>
           <code>{JSON.stringify(placeholderData, null, 2)}</code>

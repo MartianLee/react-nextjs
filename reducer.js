@@ -5,7 +5,8 @@ export const exampleInitialState = {
   error: false,
   lastUpdate: 0,
   light: false,
-  placeholderData: null
+  placeholderData: null,
+  productData: null,
 }
 
 function reducer (state = exampleInitialState, action) {
@@ -35,9 +36,17 @@ function reducer (state = exampleInitialState, action) {
       }
 
     case actionTypes.LOAD_DATA_SUCCESS:
+      console.log(action.data)
       return {
         ...state,
         ...{ placeholderData: action.data }
+      }
+
+    case actionTypes.LOAD_PRODUCT_DATA_SUCCESS:
+      console.log(action.data)
+      return {
+        ...state,
+        ...{ productData: action.data.slice(0,100) }
       }
 
     case actionTypes.TICK_CLOCK:

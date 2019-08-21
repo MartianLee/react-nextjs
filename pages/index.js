@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { loadData, startClock, tickClock } from '../actions'
+import {loadData, loadProductData, startClock, tickClock} from '../actions'
 import Page from '../components/page'
 
 class Index extends React.Component {
@@ -18,6 +18,9 @@ class Index extends React.Component {
 
   componentDidMount () {
     this.props.dispatch(startClock())
+    // For the loading sequence test
+    this.props.dispatch(loadData())
+    this.props.dispatch(loadProductData())
   }
 
   render () {
