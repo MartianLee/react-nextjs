@@ -36,14 +36,12 @@ function reducer (state = exampleInitialState, action) {
       }
 
     case actionTypes.LOAD_DATA_SUCCESS:
-      console.log(action.data)
       return {
         ...state,
         ...{ placeholderData: action.data }
       }
 
     case actionTypes.LOAD_PRODUCT_DATA_SUCCESS:
-      console.log(action.data)
       return {
         ...state,
         ...{ productData: action.data.slice(0,100) }

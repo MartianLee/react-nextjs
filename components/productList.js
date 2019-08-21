@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { connect } from 'react-redux'
-import Product from './Product'
+import Product from './product'
 import React from "react";
 
 function ProductList  ({

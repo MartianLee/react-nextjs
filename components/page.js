@@ -5,7 +5,8 @@ import Counter from './counter'
 import Clock from './clock'
 import Header from './header'
 import Nav from '../components/nav'
-import ProductList from "./ProductList";
+import ProductList from "./productList";
+import Footer from "./footer"
 import React from "react";
 
 function Page ({
@@ -24,14 +25,8 @@ function Page ({
       <Header title={'Squared'}/>
       <ProductList product={productData}/>
       <Clock lastUpdate={lastUpdate} light={light} />
-      <Counter />
-
-      {placeholderData && (
-        <pre>
-          <code>{JSON.stringify(placeholderData, null, 2)}</code>
-        </pre>
-      )}
-      {error && <p style={{ color: 'red' }}>Error: {error.message}</p>}
+      <Counter/>
+      <Footer/>
     </div>
   )
 }
