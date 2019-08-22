@@ -16,11 +16,15 @@ function Product  ({
     }
     return (
         <article className="card">
+          <Link href={`/products/${product.id}`}>
+              <div>
               <img src={product.thumbnailUrl} />
               <div className="description">
                 {product.title}
               </div>
-            <style jsx>{`
+              </div>
+          </Link>
+          <style jsx>{`
           article {
             margin-top: 20px;
             width: 100%;

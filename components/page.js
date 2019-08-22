@@ -17,12 +17,14 @@ function Page ({
   NavigateTo,
   placeholderData,
   productData,
+  id,
   title
 }) {
   return (
     <div>
       <Nav url={['posts','products']}/>
       <Header title={'Squared'}/>
+      {id ? `Product ID ${id}` : null}
       <ProductList product={productData}/>
       <Clock lastUpdate={lastUpdate} light={light} />
       <Counter/>
