@@ -15,13 +15,13 @@ function Nav ({
                 <Link href='/'>
                     <a>홈</a>
                 </Link>
-                <Link href='posts/1'>
+                <Link href='/posts/1'>
                     <a>투자하기</a>
                 </Link>
-                <Link href='posts/1'>
+                <Link href='/posts/1'>
                     <a>대출받기</a>
                 </Link>
-                <Link href='login'>
+                <Link href='/login'>
                     <a>로그인</a>
                 </Link>
             </nav>

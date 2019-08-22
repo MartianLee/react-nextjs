@@ -1,43 +1,47 @@
-import { userConstants } from '../constants';
+import {productConstants, userConstants} from '../constants';
 
-import { userService } from '../_services';
+import { userService } from '../services';
 import { alertActions } from './';
-import { history } from '../_helpers';
+import { useRouter } from 'next/router'
 
-export const userActions = {
-    login,
-    logout,
-    getAll
-};
-
-function login(username, password) {
-    return dispatch => {
-        dispatch(request({ username }));
-
-        userService.login(username, password)
-            .then(
-                user => {
-                    dispatch(success(user));
-                    history.push('/');
-                },
-                error => {
-                    dispatch(failure(error));
-                    dispatch(alertActions.error(error));
-                }
-            );
-    };
-
-    function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
-    function success(user) { return { type: userConstants.LOGIN_SUCCESS, user } }
-    function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
+export function login(username, password) {
+    // const router = useRouter()
+    //
+    // return dispatch => {
+    //     dispatch(request({ username }));
+    //
+    //     userService.login(username, password)
+    //         .then(
+    //             user => {
+    //                 dispatch(success(user));
+    //                 // return router.push('/')
+    //                 // history.push('/');
+    //             },
+    //             error => {
+    //                 dispatch(failure(error));
+    //                 dispatch(alertActions.error(error));
+    //             }
+    //         );
+    // };
+    const user = {email: username, password}
+    return { type: userConstants.LOGIN_REQUEST, user }
 }
 
-function logout() {
-    userService.logout();
+export function loginSuccess(res) {
+    const accessToken = res.access_token
+    res = { accessToken }
+    return { type: userConstants.LOGIN_SUCCESS, res }
+}
+export function loginFailure(error) {
+    return { type: userConstants.LOGIN_FAILURE, error }
+}
+
+export function logout() {
+    // userService.logout();
     return { type: userConstants.LOGOUT };
 }
 
-function getAll() {
+export function getAll() {
     return dispatch => {
         dispatch(request());
 

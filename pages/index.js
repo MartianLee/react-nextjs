@@ -8,7 +8,7 @@ class Index extends React.Component {
   static async getInitialProps (props) {
     const { store, isServer } = props.ctx
     store.dispatch(tickClock(isServer))
-
+    console.log(store.getState())
     if (!store.getState().placeholderData) {
       store.dispatch(loadData())
     }

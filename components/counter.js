@@ -17,8 +17,9 @@ class Counter extends Component {
   }
 
   render () {
-    const { count } = this.props
-    return (
+    const { counter = 0, productReducer } = this.props
+    console.log(this.props)
+      return (
       <div>
         <style jsx>{`
           div {
@@ -26,7 +27,7 @@ class Counter extends Component {
           }
         `}</style>
         <h1>
-          Count: <span>{count}</span>
+          Count: <span>{counter}</span>
         </h1>
         <button onClick={this.increment}>+1</button>
         <button onClick={this.decrement}>-1</button>

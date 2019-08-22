@@ -19,15 +19,16 @@ function Page ({
   placeholderData,
   productData,
   id,
-  title
+  title,
+  productReducer
 }) {
   return (
     <HeaderLayout>
       <Header title={'Squared'}/>
-      {id ? `Product ID ${id}` : null}
-      <ProductList product={productData}/>
-      <Clock lastUpdate={lastUpdate} light={light} />
-      <Counter/>
+      {id ? `Product ID ${productReducer.id}` : null}
+      <ProductList product={productReducer.productData}/>
+      <Clock lastUpdate={productReducer.lastUpdate} light={productReducer.light} />
+      <Counter counter={productReducer.count}/>
       <Footer/>
     </HeaderLayout>
   )

@@ -1,7 +1,9 @@
 import { applyMiddleware, createStore } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 
-import rootReducer, { exampleInitialState } from './reducers/product.reducer'
+import { exampleInitialState } from './reducers/product.reducer'
+import { authState } from './reducers/auth.reducer'
+import rootReducer from "./reducers";
 import rootSaga from './saga'
 
 const bindMiddleware = middleware => {
@@ -14,6 +16,10 @@ const bindMiddleware = middleware => {
 
 function configureStore (initialState = exampleInitialState) {
   const sagaMiddleware = createSagaMiddleware()
+  // console.log(exampleInitialState)
+  // console.log('aaaa');
+  // console.log(authState);
+  // console.log(initialState)
   const store = createStore(
     rootReducer,
     initialState,

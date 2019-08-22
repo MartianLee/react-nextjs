@@ -5,7 +5,9 @@ import es6promise from 'es6-promise'
 import 'isomorphic-unfetch'
 
 import { productConstants } from './constants'
-import { failure, loadDataSuccess, loadProductDataSuccess, tickClock } from './actions'
+import { userConstants} from "./constants";
+import { failure, loadDataSuccess, loadProductDataSuccess, tickClock, login, loginSuccess } from './actions'
+import Router from "next/router";
 
 es6promise.polyfill()
 
@@ -37,9 +39,27 @@ function * loadProductDataSaga () {
   }
 }
 
+function * userLoginSaga (action) {
+  try {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(action.user)
+    };
+    const res = yield fetch('http://localhost:8000/auth/login', requestOptions)
+    const data = yield res.json()
+    yield put(loginSuccess(data))
+    yield call(Router.push, '/' )
+  } catch (err) {
+    yield put(failure(err))
+  }
+}
+
+
 function * rootSaga () {
   yield all([
     call(runClockSaga),
+    takeLatest(userConstants.LOGIN_REQUEST, userLoginSaga),
     takeLatest(productConstants.LOAD_DATA, loadDataSaga),
     takeLatest(productConstants.LOAD_PRODUCT_DATA, loadProductDataSaga)
   ])
