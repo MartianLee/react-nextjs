@@ -1,4 +1,4 @@
-import { actionTypes } from './actions'
+import { productConstants } from '../constants'
 
 export const exampleInitialState = {
   count: 0,
@@ -9,45 +9,45 @@ export const exampleInitialState = {
   productData: null,
 }
 
-function reducer (state = exampleInitialState, action) {
+function productReducer (state = exampleInitialState, action) {
   switch (action.type) {
-    case actionTypes.FAILURE:
+    case productConstants.FAILURE:
       return {
         ...state,
         ...{ error: action.error }
       }
 
-    case actionTypes.INCREMENT:
+    case productConstants.INCREMENT:
       return {
         ...state,
         ...{ count: state.count + 1 }
       }
 
-    case actionTypes.DECREMENT:
+    case productConstants.DECREMENT:
       return {
         ...state,
         ...{ count: state.count - 1 }
       }
 
-    case actionTypes.RESET:
+    case productConstants.RESET:
       return {
         ...state,
         ...{ count: exampleInitialState.count }
       }
 
-    case actionTypes.LOAD_DATA_SUCCESS:
+    case productConstants.LOAD_DATA_SUCCESS:
       return {
         ...state,
         ...{ placeholderData: action.data }
       }
 
-    case actionTypes.LOAD_PRODUCT_DATA_SUCCESS:
+    case productConstants.LOAD_PRODUCT_DATA_SUCCESS:
       return {
         ...state,
         ...{ productData: action.data.slice(0,100) }
       }
 
-    case actionTypes.TICK_CLOCK:
+    case productConstants.TICK_CLOCK:
       return {
         ...state,
         ...{ lastUpdate: action.ts, light: !!action.light }
@@ -58,4 +58,4 @@ function reducer (state = exampleInitialState, action) {
   }
 }
 
-export default reducer
+export default productReducer

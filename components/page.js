@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { connect } from 'react-redux'
 
+import HeaderLayout from './layout/headerLayout'
 import Counter from './counter'
 import Clock from './clock'
 import Header from './header'
@@ -21,15 +22,14 @@ function Page ({
   title
 }) {
   return (
-    <div>
-      <Nav url={['posts','products']}/>
+    <HeaderLayout>
       <Header title={'Squared'}/>
       {id ? `Product ID ${id}` : null}
       <ProductList product={productData}/>
       <Clock lastUpdate={lastUpdate} light={light} />
       <Counter/>
       <Footer/>
-    </div>
+    </HeaderLayout>
   )
 }
 
