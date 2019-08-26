@@ -20,8 +20,10 @@ export function authReducer (state = authState, action) {
             console.log(action)
             return {
                 loggedIn: true,
-                user: action.accessToken,
-                accessToken: action.accessToken
+                user: {
+                    id: action.auth.id
+                },
+                token: action.auth.token
             }
         case userConstants.LOGIN_FAILURE:
             return {}

@@ -20,13 +20,14 @@ function Page ({
   productData,
   id,
   title,
+  authReducer,
   productReducer
 }) {
   return (
-    <HeaderLayout>
+    <HeaderLayout auth={authReducer}>
       <Header title={'Squared'}/>
       {id ? `Product ID ${productReducer.id}` : null}
-      <ProductList product={productReducer.productData}/>
+      <ProductList products={productReducer.productData}/>
       <Clock lastUpdate={productReducer.lastUpdate} light={productReducer.light} />
       <Counter counter={productReducer.count}/>
       <Footer/>

@@ -28,9 +28,8 @@ export function login(username, password) {
 }
 
 export function loginSuccess(res) {
-    const accessToken = res.access_token
-    res = { accessToken }
-    return { type: userConstants.LOGIN_SUCCESS, res }
+    const auth = {token: res.token, id: res.id}
+    return { type: userConstants.LOGIN_SUCCESS, auth }
 }
 export function loginFailure(error) {
     return { type: userConstants.LOGIN_FAILURE, error }

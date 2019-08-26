@@ -9,13 +9,13 @@ function ProductList  ({
      light,
      linkTo,
      NavigateTo,
-     productData,
+     products,
      title
  }) {
     return (
         <div>
             <section className="cards">
-            {!!productData ?  productData.map(product => (
+            {!!products ?  products.map(product => (
                 <Product key={product.id} product={product} />
             )) : null}
             </section>

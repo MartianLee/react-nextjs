@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { connect } from 'react-redux'
+import Login from './login'
 
 function Nav ({
      error,
@@ -7,7 +8,8 @@ function Nav ({
      linkTo,
      NavigateTo,
      placeholderData,
-     title
+     title,
+     auth,
  }) {
     return (
         <div>
@@ -21,9 +23,7 @@ function Nav ({
                 <Link href='/posts/1'>
                     <a>대출받기</a>
                 </Link>
-                <Link href='/login'>
-                    <a>로그인</a>
-                </Link>
+                <Login auth={auth}></Login>
             </nav>
             <style jsx>{`
           div {

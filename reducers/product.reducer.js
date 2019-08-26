@@ -45,7 +45,7 @@ export function productReducer (state = exampleInitialState, action) {
     case productConstants.LOAD_PRODUCT_DATA_SUCCESS:
       return {
         ...state,
-        ...{ productData: action.data.slice(0,100) }
+        ...{ productData: action.data.slice(0,40) }
       }
 
     case productConstants.TICK_CLOCK:
