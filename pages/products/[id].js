@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'next/router'
 
 import Page from '../../components/page'
+import { loadProductDetailData } from "../../actions";
 
 class ProductDetail extends React.Component {
 
@@ -12,7 +13,7 @@ class ProductDetail extends React.Component {
     }
 
     componentDidMount () {
-
+        this.props.dispatch(loadProductDetailData(this.props.query.id))
     }
 
     render () {

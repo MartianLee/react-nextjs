@@ -9,6 +9,7 @@ import Nav from '../components/nav'
 import ProductList from "./productList";
 import Footer from "./footer"
 import React from "react";
+import Product from "./product";
 
 function Page ({
   error,
@@ -26,7 +27,8 @@ function Page ({
   return (
     <HeaderLayout auth={authReducer}>
       <Header title={'Squared'}/>
-      {id ? `Product ID ${productReducer.id}` : null}
+      {productReducer.productDetailData ? `Product ID ${productReducer.productDetailData.id}` : null}
+      {productReducer.productDetailData ? <Product key={productReducer.productDetailData.id} product={productReducer.productDetailData} /> : null}
       <ProductList products={productReducer.productData}/>
       <Clock lastUpdate={productReducer.lastUpdate} light={productReducer.light} />
       <Counter counter={productReducer.count}/>

@@ -6,7 +6,7 @@ import 'isomorphic-unfetch'
 
 import { productConstants } from './constants'
 import { userConstants} from "./constants";
-import { failure, loadDataSuccess, loadProductDataSuccess, tickClock, login, loginSuccess } from './actions'
+import { failure, loadDataSuccess, loadProductDataSuccess, loadProductDetailDataSuccess, tickClock, login, loginSuccess } from './actions'
 import Router from "next/router";
 
 es6promise.polyfill()
@@ -39,6 +39,16 @@ function * loadProductDataSaga () {
   }
 }
 
+function * loadProductDetailDataSaga (action) {
+  try {
+    const res = yield fetch(`https://jsonplaceholder.typicode.com/photos/${action.id}`)
+    const productData = yield res.json()
+    yield put(loadProductDetailDataSuccess(productData))
+  } catch (err) {
+    yield put(failure(err))
+  }
+}
+
 function * userLoginSaga (action) {
   try {
     const requestOptions = {
@@ -61,7 +71,8 @@ function * rootSaga () {
     call(runClockSaga),
     takeLatest(userConstants.LOGIN_REQUEST, userLoginSaga),
     takeLatest(productConstants.LOAD_DATA, loadDataSaga),
-    takeLatest(productConstants.LOAD_PRODUCT_DATA, loadProductDataSaga)
+    takeLatest(productConstants.LOAD_PRODUCT_DATA, loadProductDataSaga),
+    takeLatest(productConstants.LOAD_PRODUCT_DETAIL_DATA, loadProductDetailDataSaga)
   ])
 }
 

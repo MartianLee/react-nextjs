@@ -25,8 +25,8 @@ function Product  ({
                   <div className="progress-bar">
                   </div>
               </div>
-              <div>
-                <div className="description">
+              <div className="description">
+                <div>
                   {product.title}
                 </div>
                   <div className="button-wrapper">

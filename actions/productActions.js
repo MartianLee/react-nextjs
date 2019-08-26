@@ -41,6 +41,18 @@ export function loadProductDataSuccess (data) {
     }
 }
 
+export function loadProductDetailData (id) {
+    return { type: productConstants.LOAD_PRODUCT_DETAIL_DATA, id }
+}
+
+export function loadProductDetailDataSuccess (data) {
+    return {
+        type: productConstants.LOAD_PRODUCT_DETAIL_DATA_SUCCESS,
+        data
+    }
+}
+
+
 export function startClock () {
     return { type: productConstants.START_CLOCK }
 }
