@@ -9,7 +9,7 @@ if (typeof window !== 'undefined') {
 }
 export const authState = user ? { loggedIn: true, user, accessToken: '' } : {}
 
-export function authReducer (state = authState, action) {
+export function auth (state = authState, action) {
     switch (action.type) {
         case userConstants.LOGIN_REQUEST:
             return {

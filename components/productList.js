@@ -15,8 +15,8 @@ function ProductList  ({
     return (
         <div>
             <section className="cards">
-            {!!products ?  products.map(product => (
-                <Product key={product.id} product={product} />
+            {!!products && products.length > 0 ?  products.map(product => (
+                <Product key={product.id} productDetail={product} />
             )) : null}
             </section>
             <style jsx>{` 

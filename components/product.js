@@ -8,18 +8,18 @@ function Product  ({
    light,
    linkTo,
    NavigateTo,
-   product,
+   productDetail,
    title
 }) {
-    if(!product){
+    if(!productDetail){
         return {}
     }
     return (
         <article className="card">
-          <Link href={`/products/${product.id}`}>
+          <Link href={`/products/${productDetail.id}`}>
             <div>
               <div className="image-wrapper">
-                <img src={product.thumbnailUrl} />
+                <img src={productDetail.thumbnailUrl} />
               </div>
               <div className="progress-bar-wrapper">
                   <div className="progress-bar">
@@ -27,7 +27,7 @@ function Product  ({
               </div>
               <div className="description">
                 <div>
-                  {product.title}
+                  {productDetail.title}
                 </div>
                   <div className="button-wrapper">
                 <button className="button">

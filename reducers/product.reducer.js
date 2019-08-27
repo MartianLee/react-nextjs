@@ -9,7 +9,7 @@ export const exampleInitialState = {
   productData: null,
 }
 
-export function productReducer (state = exampleInitialState, action) {
+export function product (state = exampleInitialState, action) {
   // console.log(state, action)
   switch (action.type) {
     case productConstants.FAILURE:

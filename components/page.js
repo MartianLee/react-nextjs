@@ -21,17 +21,17 @@ function Page ({
   productData,
   id,
   title,
-  authReducer,
-  productReducer
+  auth,
+  product
 }) {
   return (
-    <HeaderLayout auth={authReducer}>
+    <HeaderLayout auth={auth}>
       <Header title={'Squared'}/>
-      {productReducer.productDetailData ? `Product ID ${productReducer.productDetailData.id}` : null}
-      {productReducer.productDetailData ? <Product key={productReducer.productDetailData.id} product={productReducer.productDetailData} /> : null}
-      <ProductList products={productReducer.productData}/>
-      <Clock lastUpdate={productReducer.lastUpdate} light={productReducer.light} />
-      <Counter counter={productReducer.count}/>
+      {!!product.productDetailData ? `Product ID ${product.productDetailData.id}` : null}
+      {!!product.productDetailData ? <Product productDetail={product.productDetailData} /> : null}
+      <ProductList products={product.productData}/>
+      <Clock lastUpdate={product.lastUpdate} light={product.light} />
+      <Counter counter={product.count}/>
       <Footer/>
     </HeaderLayout>
   )

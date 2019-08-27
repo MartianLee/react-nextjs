@@ -17,7 +17,7 @@ class Counter extends Component {
   }
 
   render () {
-    const { counter = 0, productReducer } = this.props
+    const { counter = 0 } = this.props
     console.log(this.props)
       return (
       <div>
