@@ -12,6 +12,7 @@ yarn dev
 
 Open ``localhost:3000`` in web browser 
 
+Run Storybook with ``npm run storybook``
 
 ## Libraries
 
