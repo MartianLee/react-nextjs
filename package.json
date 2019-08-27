@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "storybook": "start-storybook"
   },
   "dependencies": {
     "es6-promise": "4.1.1",
@@ -15,14 +16,17 @@
     "next-redux-saga": "4.0.0",
     "next-redux-wrapper": "2.0.0",
     "normalizr": "^3.4.1",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
     "react-google-recaptcha": "^2.0.0-rc.1",
     "react-redux": "5.0.7",
     "redux": "4.0.1",
     "redux-saga": "1.0.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@storybook/react": "^5.1.11",
+    "babel-loader": "^8.0.6",
     "redux-devtools-extension": "2.13.2"
   }
 }

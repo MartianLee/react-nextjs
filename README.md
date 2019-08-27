@@ -12,3 +12,51 @@ yarn dev
 
 Open ``localhost:3000`` in web browser 
 
+
+## Libraries
+
+* React
+* Redux
+* Redux-saga
+* Storybook
+
+## Docker
+
+Check Dockerfile
+
+## Folder Structure
+```tree
+.
+├── actions
+├── components
+│   ├── layout
+│   ├── nav
+│   └── products
+├── constants
+├── containers
+│   └── loginContainer
+├── helpers
+├── middleware
+├── pages
+│   ├── login
+│   ├── posts
+│   ├── products
+│   └── user
+├── reducers
+├── services
+├── static
+├── stories
+└── util
+```
+
+### actions
+### components
+### constants
+### containers
+### helpers
+### middleware
+### pages
+### reducers
+### static
+### stories
+### util
