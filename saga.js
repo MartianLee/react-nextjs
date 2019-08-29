@@ -12,11 +12,11 @@ import Router from "next/router";
 es6promise.polyfill()
 
 function * runClockSaga () {
-  yield take(productConstants.START_CLOCK)
-  while (true) {
-    yield put(tickClock(false))
-    yield delay(1000)
-  }
+  // yield take(productConstants.START_CLOCK)
+  // while (true) {
+  //   yield put(tickClock(false))
+  //   yield delay(1000)
+  // }
 }
 
 function * loadDataSaga () {
@@ -60,6 +60,15 @@ function * userLoginSaga (action) {
     const data = yield res.json()
     yield put(loginSuccess(data))
     yield call(Router.push, '/' )
+    localStorage.setItem('token', data.token);
+  } catch (err) {
+    yield put(failure(err))
+  }
+}
+
+function * userLogoutSaga (action) {
+  try {
+    localStorage.removeItem('token');
   } catch (err) {
     yield put(failure(err))
   }
@@ -70,6 +79,7 @@ function * rootSaga () {
   yield all([
     call(runClockSaga),
     takeLatest(userConstants.LOGIN_REQUEST, userLoginSaga),
+    takeLatest(userConstants.LOGOUT, userLogoutSaga),
     takeLatest(productConstants.LOAD_DATA, loadDataSaga),
     takeLatest(productConstants.LOAD_PRODUCT_DATA, loadProductDataSaga),
     takeLatest(productConstants.LOAD_PRODUCT_DETAIL_DATA, loadProductDetailDataSaga)

@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 
 import Page from '../../components/page'
 import LoginContainer from '../../containers/loginContainer'
+import Header from "../../components/header";
+import HeaderLayout from "../../components/layout/headerLayout";
 
 class Login extends React.Component {
     static async getInitialProps (props) {
@@ -14,7 +16,12 @@ class Login extends React.Component {
     }
 
     render () {
-        return <LoginContainer title='Login Page'/>
+        return (
+            <HeaderLayout auth={this.props.auth}>
+                <Header title={'Squared'}/>
+                <LoginContainer title='Login Page'/>
+            </HeaderLayout>
+        )
     }
 }
 

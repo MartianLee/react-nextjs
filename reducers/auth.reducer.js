@@ -1,15 +1,8 @@
 import { userConstants } from '../constants';
 
-let user
-if (typeof window !== 'undefined') {
-    user = JSON.parse(localStorage.getItem('user'))
-    console.log('we are running on the client')
-} else {
-    console.log('we are running on the server');
-}
-export const authState = user ? { loggedIn: true, user, accessToken: '' } : {}
+export const initialState = { loggedIn: false, accessToken: ''}
 
-export function auth (state = authState, action) {
+export function auth (state = initialState, action) {
     switch (action.type) {
         case userConstants.LOGIN_REQUEST:
             return {
@@ -28,7 +21,11 @@ export function auth (state = authState, action) {
         case userConstants.LOGIN_FAILURE:
             return {}
         case userConstants.LOGOUT:
-            return {}
+            return {
+                loggedIn: false,
+                user: {},
+                token: null
+            }
         default:
             return state
     }

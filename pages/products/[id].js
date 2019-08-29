@@ -4,6 +4,15 @@ import { withRouter } from 'next/router'
 
 import Page from '../../components/page'
 import { loadProductDetailData } from "../../actions";
+import Header from "../../components/header";
+import Product from "../../components/product";
+import ProductList from "../../components/productList";
+import Clock from "../../components/clock";
+import Counter from "../../components/counter";
+import Footer from "../../components/footer";
+import HeaderLayout from "../../components/layout/headerLayout";
+
+import ProductContainer from "../../containers/productContainer"
 
 class ProductDetail extends React.Component {
 
@@ -13,12 +22,14 @@ class ProductDetail extends React.Component {
     }
 
     componentDidMount () {
-        this.props.dispatch(loadProductDetailData(this.props.query.id))
     }
 
     render () {
-        console.log(this.props.query)
-        return <Page title='Post {pid}' linkTo='/' NavigateTo={`product/${this.props.query.id}`} id={this.props.query.id} />
+        console.log(this.props)
+        return (
+            <ProductContainer id={this.props.query.id}></ProductContainer>
+            )
+            // <Page title='Post {pid}' linkTo='/' NavigateTo={`product/${this.props.query.id}`} id={this.props.query.id} />
     }
 }
 

@@ -16,7 +16,7 @@ function Product  ({
     }
     return (
         <article className="card">
-          <Link href={`/products/${productDetail.id}`}>
+          <Link prefetch href={`/products/${productDetail.id}`}>
             <div>
               <div className="image-wrapper">
                 <img src={productDetail.thumbnailUrl} />

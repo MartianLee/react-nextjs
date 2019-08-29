@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import { connect } from 'react-redux'
 import Login from './login'
+import {Router} from "next/router"
+import { logout } from '../../actions'
 
 function Nav ({
      error,
@@ -9,10 +11,11 @@ function Nav ({
      NavigateTo,
      placeholderData,
      title,
+     dispatch,
      auth,
  }) {
     return (
-        <div>
+        <div className="navigation">
             <nav>
                 <Link href='/'>
                     <a>홈</a>
@@ -24,9 +27,12 @@ function Nav ({
                     <a>대출받기</a>
                 </Link>
                 <Login auth={auth}></Login>
+                <div className="logout" onClick={() => dispatch(logout())}>
+                    로그아웃
+                </div>
             </nav>
             <style jsx>{`
-          div {
+          .navigation {
             position: fixed;
             top: 0;
             width: 100%;
@@ -38,12 +44,13 @@ function Nav ({
           nav {
             display: flex;
           }
-          a {
+          a, .logout {
             flex: 1;
             color: white;
             text-align: center;
             padding: 14px 16px;
             text-decoration: none;
+            cursor: pointer;
           }
         `}</style>
         </div>

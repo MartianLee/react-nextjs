@@ -2,11 +2,13 @@ import React from 'react'
 import Link from "next/link"
 
 function checkLogin(auth) {
-    if(auth.loggedIn){
+    if(!!auth.loggedIn && !!auth.user){
        return (
-           <div className='login'>
-            {auth.user.id}
-          </div>
+           <div>
+               <div className='login'>
+                {auth.user.id}
+              </div>
+           </div>
        )
     }else {
         return (

@@ -45,7 +45,7 @@ export function product (state = exampleInitialState, action) {
     case productConstants.LOAD_PRODUCT_DATA_SUCCESS:
       return {
         ...state,
-        ...{ productData: action.data.slice(0,40), productDetailData: null }
+        ...{ productData: action.data.slice(0,40) }
       }
 
     case productConstants.LOAD_PRODUCT_DETAIL_DATA_SUCCESS:

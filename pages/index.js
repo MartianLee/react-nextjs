@@ -1,19 +1,20 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import {loadData, loadProductData, startClock, tickClock} from '../actions'
+import {loadData, loadProductData, login, startClock, tickClock} from '../actions'
 import Page from '../components/page'
+import getToken from '../util/getToken'
 
 class Index extends React.Component {
   static async getInitialProps (props) {
     const { store, isServer } = props.ctx
-    store.dispatch(tickClock(isServer))
-    console.log(store.getState())
+    // store.dispatch(tickClock(isServer))
+    // console.log(store.getState())
     if (!store.getState().placeholderData) {
       store.dispatch(loadData())
     }
 
-    return { isServer }
+    return { isServer, ...store.getState() }
   }
 
   componentDidMount () {
@@ -21,6 +22,11 @@ class Index extends React.Component {
     // For the loading sequence test
     this.props.dispatch(loadData())
     this.props.dispatch(loadProductData())
+    console.log(this.props)
+    const token = getToken()
+    if(!!token) {
+      this.props.dispatch(login('admin@admin.com', 'admin'));
+    }
   }
 
   render () {

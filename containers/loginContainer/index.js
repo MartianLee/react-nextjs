@@ -48,10 +48,6 @@ class LoginContainer extends React.Component {
         let loggingIn
         return (
             <div>
-                <div className="alert alert-info">
-                    Username: test<br/>
-                    Password: test
-                </div>
                 <h2>Login</h2>
                 <form name="form" onSubmit={this.handleSubmit}>
                     <div className={'form-group' + (this.submitted && !username ? ' has-error' : '')}>
