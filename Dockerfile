@@ -16,11 +16,14 @@ RUN npm install --silent
 RUN npm install react-scripts@3.0.1 -g --silent
 RUN npm run build
 
+EXPOSE 3000
+CMD ["npm", "start"]
+
 # production environment
-FROM nginx:1.13.9-alpine
-COPY --from=builder /app/build /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+#FROM nginx:1.13.9-alpine
+#COPY --from=builder /app/.next /usr/share/nginx/html
+#EXPOSE 80
+#CMD ["nginx", "-g", "daemon off;"]
 
 # start app
 #CMD ["yarn", "run", "dev"]
