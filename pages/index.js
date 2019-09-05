@@ -22,11 +22,6 @@ class Index extends React.Component {
     // For the loading sequence test
     this.props.dispatch(loadData())
     this.props.dispatch(loadProductData())
-    console.log(this.props)
-    const token = getToken()
-    if(!!token) {
-      this.props.dispatch(login('admin@admin.com', 'admin'));
-    }
   }
 
   render () {

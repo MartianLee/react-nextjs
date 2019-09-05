@@ -14,9 +14,10 @@ export function auth (state = initialState, action) {
             return {
                 loggedIn: true,
                 user: {
-                    id: action.auth.id
+                    id: action.auth.username
                 },
-                token: action.auth.token
+                access: action.auth.access,
+                refresh: action.auth.refresh
             }
         case userConstants.LOGIN_FAILURE:
             return {}

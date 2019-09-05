@@ -19,6 +19,13 @@ function * runClockSaga () {
   // }
 }
 
+// function * showaAlarmSaga (action) {
+//   yield take(alarmConstants.SHOW_ALARM)
+//   yield put(showAlarm(action.content))
+//   yield delay(2000)
+//   yield put(closeAlarm()))
+// }
+
 function * loadDataSaga () {
   try {
     const res = yield fetch('https://jsonplaceholder.typicode.com/users')
@@ -56,11 +63,27 @@ function * userLoginSaga (action) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(action.user)
     };
-    const res = yield fetch('http://localhost:8000/auth/login', requestOptions)
+    const res = yield fetch('http://localhost:8001/v1/token/', requestOptions)
     const data = yield res.json()
-    yield put(loginSuccess(data))
+    yield put(loginSuccess({...data, ...action.user}))
     yield call(Router.push, '/' )
-    localStorage.setItem('token', data.token);
+    localStorage.setItem('token', data.access);
+  } catch (err) {
+    yield put(failure(err))
+  }
+}
+
+function * userSignUpSaga (action) {
+  try {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(action.user)
+    };
+    const res = yield fetch('http://localhost:8001/v1/users/signup/', requestOptions)
+    const data = yield res.json()
+    const user = { email: action.user.email, password: action.user.password }
+    yield put(login(user))
   } catch (err) {
     yield put(failure(err))
   }
@@ -78,6 +101,8 @@ function * userLogoutSaga (action) {
 function * rootSaga () {
   yield all([
     call(runClockSaga),
+    // takeLatest(alarmConstants.SHOW_ALARM, showaAlarmSaga),
+    takeLatest(userConstants.SIGN_UP, userSignUpSaga),
     takeLatest(userConstants.LOGIN_REQUEST, userLoginSaga),
     takeLatest(userConstants.LOGOUT, userLogoutSaga),
     takeLatest(productConstants.LOAD_DATA, loadDataSaga),

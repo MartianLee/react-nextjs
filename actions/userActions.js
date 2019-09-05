@@ -2,7 +2,12 @@ import {productConstants, userConstants} from '../constants';
 
 import { userService } from '../services';
 import { alertActions } from './';
-import { useRouter } from 'next/router'
+
+
+export function signUp(user) {
+    const userInfo = {email: user.username, password1: user.password, password2: user.password2}
+    return { type: userConstants.SIGN_UP, user: userInfo }
+}
 
 export function login(username, password) {
     // const router = useRouter()
@@ -23,12 +28,11 @@ export function login(username, password) {
     //             }
     //         );
     // };
-    const user = {email: username, password}
+    const user = {username: username, password}
     return { type: userConstants.LOGIN_REQUEST, user }
 }
 
-export function loginSuccess(res) {
-    const auth = {token: res.token, id: res.id}
+export function loginSuccess(auth) {
     return { type: userConstants.LOGIN_SUCCESS, auth }
 }
 export function loginFailure(error) {

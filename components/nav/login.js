@@ -12,11 +12,18 @@ function checkLogin(auth) {
        )
     }else {
         return (
+            <div>
             <Link href='/login'>
                 <div className='login'>
                     로그인
                 </div>
             </Link>
+            <Link href='/signup'>
+                <div className='signup'>
+                    회원가입
+                </div>
+            </Link>
+            </div>
         )
     }
 }

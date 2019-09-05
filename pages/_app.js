@@ -5,6 +5,8 @@ import withRedux from 'next-redux-wrapper'
 import withReduxSaga from 'next-redux-saga'
 
 import createStore from '../store'
+import getToken from "../util/getToken";
+import {login} from "../actions";
 
 class MyApp extends App {
   static async getInitialProps ({ Component, ctx }) {
@@ -15,6 +17,13 @@ class MyApp extends App {
     }
 
     return { pageProps }
+  }
+
+  componentDidMount() {
+    const token = getToken()
+    if(!!token) {
+      this.props.store.dispatch(login('admin@admin.com', 'admin'));
+    }
   }
 
   render () {
