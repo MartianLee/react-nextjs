@@ -19,7 +19,7 @@ class User extends React.Component {
             <HeaderLayout auth={this.props.auth}>
                 <Header title={'Squared'}/>
                 <div>
-                    
+
                 </div>
             </HeaderLayout>
         )

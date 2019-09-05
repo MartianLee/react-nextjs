@@ -6,6 +6,8 @@ import 'isomorphic-unfetch'
 
 import { productConstants } from './constants'
 import { userConstants} from "./constants";
+import { configConstants } from './constants'
+
 import { failure, loadDataSuccess, loadProductDataSuccess, loadProductDetailDataSuccess, tickClock, login, loginSuccess } from './actions'
 import Router from "next/router";
 
@@ -28,7 +30,7 @@ function * runClockSaga () {
 
 function * loadDataSaga () {
   try {
-    const res = yield fetch('https://jsonplaceholder.typicode.com/users')
+    const res = yield fetch(`${configConstants.TEST_API_URL}/users`)
     const data = yield res.json()
     yield put(loadDataSuccess(data))
   } catch (err) {
@@ -38,7 +40,7 @@ function * loadDataSaga () {
 
 function * loadProductDataSaga () {
   try {
-    const res = yield fetch('https://jsonplaceholder.typicode.com/photos')
+    const res = yield fetch(`${configConstants.TEST_API_URL}/photos`)
     const productData = yield res.json()
     yield put(loadProductDataSuccess(productData))
   } catch (err) {
@@ -48,7 +50,7 @@ function * loadProductDataSaga () {
 
 function * loadProductDetailDataSaga (action) {
   try {
-    const res = yield fetch(`https://jsonplaceholder.typicode.com/photos/${action.id}`)
+    const res = yield fetch(`${configConstants.TEST_API_URL}/photos/${action.id}`)
     const productData = yield res.json()
     yield put(loadProductDetailDataSuccess(productData))
   } catch (err) {
@@ -63,7 +65,7 @@ function * userLoginSaga (action) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(action.user)
     };
-    const res = yield fetch('http://localhost:8001/v1/token/', requestOptions)
+    const res = yield fetch(`${configConstants.API_URL}/v1/token/`, requestOptions)
     const data = yield res.json()
     yield put(loginSuccess({...data, ...action.user}))
     yield call(Router.push, '/' )
@@ -80,7 +82,7 @@ function * userSignUpSaga (action) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(action.user)
     };
-    const res = yield fetch('http://localhost:8001/v1/users/signup/', requestOptions)
+    const res = yield fetch(`${configConstants.API_URL}/v1/users/signup/`, requestOptions)
     const data = yield res.json()
     const user = { email: action.user.email, password: action.user.password }
     yield put(login(user))
