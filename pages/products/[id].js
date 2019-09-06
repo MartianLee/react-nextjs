@@ -12,6 +12,8 @@ import Counter from "../../components/counter";
 import Footer from "../../components/footer";
 import HeaderLayout from "../../components/layout/headerLayout";
 
+import { getBalance} from "../../actions";
+
 import ProductContainer from "../../containers/productContainer"
 
 class ProductDetail extends React.Component {
@@ -27,7 +29,9 @@ class ProductDetail extends React.Component {
     render () {
         console.log(this.props)
         return (
-            <ProductContainer id={this.props.query.id}></ProductContainer>
+            <div>
+                <ProductContainer id={this.props.query.id}></ProductContainer>
+            </div>
             )
             // <Page title='Post {pid}' linkTo='/' NavigateTo={`product/${this.props.query.id}`} id={this.props.query.id} />
     }

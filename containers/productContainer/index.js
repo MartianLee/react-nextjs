@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { connect } from 'react-redux'
 import React from "react";
-import {loadProductDetailData} from '../../actions';
+import {getBalance, loadProductDetailData} from '../../actions';
 import Product from "../../components/product";
 import HeaderLayout from "../../components/layout/headerLayout";
 import Header from "../../components/header";

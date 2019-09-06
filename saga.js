@@ -6,9 +6,10 @@ import 'isomorphic-unfetch'
 
 import { productConstants } from './constants'
 import { userConstants} from "./constants";
+import { walletConstants } from "./constants";
 import { configConstants } from './constants'
 
-import { failure, loadDataSuccess, loadProductDataSuccess, loadProductDetailDataSuccess, tickClock, login, loginSuccess } from './actions'
+import { failure, loadDataSuccess, loadProductDataSuccess, loadProductDetailDataSuccess, tickClock, login, loginSuccess, getBalanceSuccess, createWalletSuccess } from './actions'
 import Router from "next/router";
 
 es6promise.polyfill()
@@ -99,6 +100,36 @@ function * userLogoutSaga (action) {
   }
 }
 
+function * getWalletBalanceSaga (action) {
+  try {
+    const requestOptions = {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(action.user)
+    };
+    const res = yield fetch(`${configConstants.API_URL}/wallet/`, requestOptions)
+    const data = yield res.json()
+    yield put(getBalanceSuccess(data))
+  } catch (err) {
+    yield put(failure(err))
+  }
+}
+
+function * createWalletSaga (action) {
+  try {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(action.user)
+    };
+    const res = yield fetch(`${configConstants.API_URL}/wallets/create/`, requestOptions)
+    const data = yield res.json()
+    yield put(createWalletSuccess(data))
+  } catch (err) {
+    yield put(failure(err))
+  }
+}
+
 
 function * rootSaga () {
   yield all([
@@ -109,7 +140,9 @@ function * rootSaga () {
     takeLatest(userConstants.LOGOUT, userLogoutSaga),
     takeLatest(productConstants.LOAD_DATA, loadDataSaga),
     takeLatest(productConstants.LOAD_PRODUCT_DATA, loadProductDataSaga),
-    takeLatest(productConstants.LOAD_PRODUCT_DETAIL_DATA, loadProductDetailDataSaga)
+    takeLatest(productConstants.LOAD_PRODUCT_DETAIL_DATA, loadProductDetailDataSaga),
+    takeLatest(walletConstants.GET_BALANCE, getWalletBalanceSaga),
+    takeLatest(walletConstants.CREATE_WALLET, createWalletSaga)
   ])
 }
 

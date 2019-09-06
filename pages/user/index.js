@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import SignUpContainer from '../../containers/signUpContainer'
 import Header from "../../components/header";
 import HeaderLayout from "../../components/layout/headerLayout";
+import UserContainer from "../../containers/userContainer"
+import {getBalance} from "../../actions";
 
 class User extends React.Component {
     static async getInitialProps (props) {
@@ -18,9 +20,7 @@ class User extends React.Component {
         return (
             <HeaderLayout auth={this.props.auth}>
                 <Header title={'Squared'}/>
-                <div>
-
-                </div>
+                <UserContainer></UserContainer>
             </HeaderLayout>
         )
     }

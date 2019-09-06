@@ -22,7 +22,7 @@ class MyApp extends App {
   componentDidMount() {
     const token = getToken()
     if(!!token) {
-      this.props.store.dispatch(login('admin@admin.com', 'admin'));
+      // this.props.store.dispatch(login('admin@admin.com', 'admin'));
     }
   }
 

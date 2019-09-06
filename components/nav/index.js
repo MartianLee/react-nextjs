@@ -26,6 +26,9 @@ function Nav ({
                 <Link href='/posts/1'>
                     <a>대출받기</a>
                 </Link>
+                <Link href='/user'>
+                    <a>내 정보 </a>
+                </Link>
                 <Login auth={auth}></Login>
                 <div className="logout" onClick={() => dispatch(logout())}>
                     로그아웃
