@@ -5,8 +5,8 @@ import { withRouter } from 'next/router'
 import Page from '../../components/page'
 import { loadProductDetailData } from "../../actions";
 import Header from "../../components/header";
-import Product from "../../components/product";
-import ProductList from "../../components/productList";
+import Product from "../../components/products/product";
+import ProductList from "../../components/products/productList";
 import Clock from "../../components/clock";
 import Counter from "../../components/counter";
 import Footer from "../../components/footer";

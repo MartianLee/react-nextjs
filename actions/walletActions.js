@@ -18,3 +18,12 @@ export function createWalletSuccess(data) {
     data = JSON.parse(data)
     return { type: walletConstants.CREATE_WALLET_SUCCESS, data}
 }
+
+export function sendCoins(sendInfo) {
+    return { type: walletConstants.SEND_COINS, sendInfo }
+}
+
+export function sendCoinsSuccess(data) {
+    data = JSON.parse(data)
+    return { type: walletConstants.SEND_COINS_SUCCESS, data}
+}

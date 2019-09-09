@@ -9,7 +9,7 @@ import { userConstants} from "./constants";
 import { walletConstants } from "./constants";
 import { configConstants } from './constants'
 
-import { failure, loadDataSuccess, loadProductDataSuccess, loadProductDetailDataSuccess, tickClock, login, loginSuccess, getBalanceSuccess, createWalletSuccess } from './actions'
+import { failure, loadDataSuccess, loadProductDataSuccess, loadProductDetailDataSuccess, tickClock, login, loginSuccess, getBalance, getBalanceSuccess, createWalletSuccess, sendCoinsSuccess } from './actions'
 import Router from "next/router";
 
 es6promise.polyfill()
@@ -130,6 +130,23 @@ function * createWalletSaga (action) {
   }
 }
 
+function * sendCoinsSaga (action) {
+  try {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(action.sendInfo)
+    };
+    console.log(action)
+    const res = yield fetch(`${configConstants.API_URL}/wallets/send/`, requestOptions)
+    const data = yield res.json()
+    yield put(sendCoinsSuccess(data))
+    yield delay(10000)
+    yield put(getBalance())
+  } catch (err) {
+    yield put(failure(err))
+  }
+}
 
 function * rootSaga () {
   yield all([
@@ -142,7 +159,8 @@ function * rootSaga () {
     takeLatest(productConstants.LOAD_PRODUCT_DATA, loadProductDataSaga),
     takeLatest(productConstants.LOAD_PRODUCT_DETAIL_DATA, loadProductDetailDataSaga),
     takeLatest(walletConstants.GET_BALANCE, getWalletBalanceSaga),
-    takeLatest(walletConstants.CREATE_WALLET, createWalletSaga)
+    takeLatest(walletConstants.CREATE_WALLET, createWalletSaga),
+    takeLatest(walletConstants.SEND_COINS, sendCoinsSaga)
   ])
 }
 
