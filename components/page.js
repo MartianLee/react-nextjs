@@ -6,10 +6,10 @@ import Counter from './counter'
 import Clock from './clock'
 import Header from './header'
 import Nav from '../components/nav'
-import ProductList from "./productList";
-import Footer from "./footer"
-import React from "react";
-import Product from "./product";
+import ProductList from './products/productList'
+import Footer from './footer'
+import React from 'react'
+import Product from './products/product'
 
 function Page ({
   error,
@@ -27,8 +27,8 @@ function Page ({
   return (
     <HeaderLayout auth={auth}>
       <Header title={'Squared'}/>
-      {!!product.productDetailData ? `Product ID ${product.productDetailData.id}` : null}
-      {!!product.productDetailData ? <Product productDetail={product.productDetailData} /> : null}
+      {product.productDetailData ? `Product ID ${product.productDetailData.id}` : null}
+      {product.productDetailData ? <Product productDetail={product.productDetailData} /> : null}
       <ProductList products={product.productData}/>
       <Clock lastUpdate={product.lastUpdate} light={product.light} />
       <Counter counter={product.count}/>
