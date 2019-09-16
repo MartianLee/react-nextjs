@@ -68,3 +68,7 @@ export function startOtp () {
 export function sendOtp () {
   return { type: userConstants.SEND_OTP }
 }
+
+export function sendOtpSuccess () {
+  return { type: userConstants.SEND_OTP_SUCCESS }
+}

@@ -27,6 +27,12 @@ export function auth (state = initialState, action) {
         user: {},
         token: null
       }
+    case userConstants.SEND_OTP_SUCCESS:
+      return {
+        sendingOtp: false,
+        user: {},
+        otpStatus: action.otp.status
+      }
     default:
       return state
   }
