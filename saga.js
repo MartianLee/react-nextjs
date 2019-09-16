@@ -4,13 +4,10 @@ import { all, call, delay, put, take, takeLatest } from 'redux-saga/effects'
 import es6promise from 'es6-promise'
 import 'isomorphic-unfetch'
 
-import { productConstants } from './constants'
-import { userConstants} from "./constants";
-import { walletConstants } from "./constants";
-import { configConstants } from './constants'
+import { productConstants, userConstants, walletConstants, configConstants } from './constants'
 
 import { failure, loadDataSuccess, loadProductDataSuccess, loadProductDetailDataSuccess, tickClock, login, loginSuccess, getBalance, getBalanceSuccess, createWalletSuccess, sendCoinsSuccess } from './actions'
-import Router from "next/router";
+import Router from 'next/router'
 
 es6promise.polyfill()
 
@@ -65,12 +62,12 @@ function * userLoginSaga (action) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(action.user)
-    };
+    }
     const res = yield fetch(`${configConstants.API_URL}/v1/token/`, requestOptions)
     const data = yield res.json()
-    yield put(loginSuccess({...data, ...action.user}))
-    yield call(Router.push, '/' )
-    localStorage.setItem('token', data.access);
+    yield put(loginSuccess({ ...data, ...action.user }))
+    yield call(Router.push, '/')
+    localStorage.setItem('token', data.access)
   } catch (err) {
     yield put(failure(err))
   }
@@ -82,7 +79,7 @@ function * userSignUpSaga (action) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(action.user)
-    };
+    }
     const res = yield fetch(`${configConstants.API_URL}/v1/users/signup/`, requestOptions)
     const data = yield res.json()
     const user = { email: action.user.email, password: action.user.password }
@@ -94,7 +91,7 @@ function * userSignUpSaga (action) {
 
 function * userLogoutSaga (action) {
   try {
-    localStorage.removeItem('token');
+    localStorage.removeItem('token')
   } catch (err) {
     yield put(failure(err))
   }
@@ -106,7 +103,7 @@ function * getWalletBalanceSaga (action) {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(action.user)
-    };
+    }
     const res = yield fetch(`${configConstants.API_URL}/wallet/`, requestOptions)
     const data = yield res.json()
     yield put(getBalanceSuccess(data))
@@ -121,7 +118,7 @@ function * createWalletSaga (action) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(action.user)
-    };
+    }
     const res = yield fetch(`${configConstants.API_URL}/wallets/create/`, requestOptions)
     const data = yield res.json()
     yield put(createWalletSuccess(data))
@@ -136,7 +133,7 @@ function * sendCoinsSaga (action) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(action.sendInfo)
-    };
+    }
     console.log(action)
     const res = yield fetch(`${configConstants.API_URL}/wallets/send/`, requestOptions)
     const data = yield res.json()

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import {loadData, loadProductData, login, startClock, tickClock} from '../actions'
+import { loadData, loadProductData, login, startClock, tickClock } from '../actions'
 import Page from '../components/page'
 import getToken from '../util/getToken'
 

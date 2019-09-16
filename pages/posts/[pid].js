@@ -5,20 +5,19 @@ import { withRouter } from 'next/router'
 import Page from '../../components/page'
 
 class Other extends React.Component {
+  static async getInitialProps (props) {
+    const { store, isServer } = props.ctx
+    console.log(props.query)
+    return { isServer }
+  }
 
-    static async getInitialProps (props) {
-        const { store, isServer } = props.ctx
-        console.log(props.query)
-        return { isServer }
-    }
+  componentDidMount () {
 
-    componentDidMount () {
+  }
 
-    }
-
-    render () {
-        return <Page title='Post {pid}' linkTo='/' NavigateTo='post/{pid}' />
-    }
+  render () {
+    return <Page title='Post {pid}' linkTo='/' NavigateTo='post/{pid}' />
+  }
 }
 
 export default withRouter(connect()(Other))

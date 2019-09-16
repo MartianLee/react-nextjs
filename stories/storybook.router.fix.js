@@ -1,42 +1,43 @@
-import { Component } from 'react';
-import Router from 'next/router';
-import { action } from '@storybook/addon-actions';
-import PropTypes from 'prop-types';
+import { Component } from 'react'
+import Router from 'next/router'
+import { action } from '@storybook/addon-actions'
+import PropTypes from 'prop-types'
 
 const actionWithPromise = () => {
-    action('clicked link')();
-    return new Promise((_, reject) => reject());
-};
+  action('clicked link')()
+  return new Promise((_, reject) => reject())
+}
 
 const mockedRouter = {
-    push: actionWithPromise,
-    replace: actionWithPromise,
-    prefetch: () => {},
-    route: '/mock-route',
-    pathname: 'mock-path',
-};
+  push: actionWithPromise,
+  replace: actionWithPromise,
+  prefetch: () => {},
+  route: '/mock-route',
+  pathname: 'mock-path'
+}
 
 // @ts-ignore
-Router.router = mockedRouter;
+Router.router = mockedRouter
 
 const withMockRouterContext = mockRouter => {
-    class MockRouterContext extends Component {
-        getChildContext() {
-            return {
-                router: { ...mockedRouter, ...mockRouter },
-            };
-        }
-        render() {
-            return this.props.children;
-        }
+  class MockRouterContext extends Component {
+    getChildContext () {
+      return {
+        router: { ...mockedRouter, ...mockRouter }
+      }
     }
 
-    // @ts-ignore
-    MockRouterContext.childContextTypes = {
-        router: PropTypes.object,
-    };
+    render () {
+      return this.props.children
+    }
+  }
 
-    return MockRouterContext;
-};
+  // @ts-ignore
+  MockRouterContext.childContextTypes = {
+    router: PropTypes.object
+  }
 
-export const StorybookRouterFix = withMockRouterContext(mockedRouter);
+  return MockRouterContext
+}
+
+export const StorybookRouterFix = withMockRouterContext(mockedRouter)
