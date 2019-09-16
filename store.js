@@ -3,7 +3,7 @@ import createSagaMiddleware from 'redux-saga'
 
 import { exampleInitialState } from './reducers/product.reducer'
 import { authState } from './reducers/auth.reducer'
-import rootReducer from "./reducers";
+import rootReducer from './reducers'
 import rootSaga from './saga'
 
 const bindMiddleware = middleware => {

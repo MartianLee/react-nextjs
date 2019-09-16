@@ -1,11 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import SignUpContainer from '../../containers/signUp'
+import Page from '../../components/page'
+import AuthContainer from '../../containers/auth/authOtp'
 import Header from '../../components/header'
 import HeaderLayout from '../../components/layout/headerLayout'
 
-class SignUp extends React.Component {
+class AuthOtp extends React.Component {
   static async getInitialProps (props) {
     const { store, isServer } = props.ctx
     return { isServer }
@@ -18,10 +19,10 @@ class SignUp extends React.Component {
     return (
       <HeaderLayout auth={this.props.auth}>
         <Header title={'Squared'}/>
-        <SignUpContainer title='SignUp Page'/>
+        <AuthContainer title='Auth OTP Page'/>
       </HeaderLayout>
     )
   }
 }
 
-export default connect()(SignUp)
+export default connect()(AuthOtp)

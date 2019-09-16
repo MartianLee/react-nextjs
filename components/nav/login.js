@@ -1,38 +1,44 @@
 import React from 'react'
-import Link from "next/link"
+import Link from 'next/link'
 
-function checkLogin(auth) {
-    if(!!auth.loggedIn && !!auth.user){
-       return (
-           <div>
-               <div className='login'>
-                {auth.user.id}
-              </div>
-           </div>
-       )
-    }else {
-        return (
-            <div>
-            <Link href='/login'>
-                <div className='login'>
+function checkLogin (auth) {
+  if (!!auth.loggedIn && !!auth.user) {
+    return (
+      <div>
+        <div className='login'>
+          {auth.user.id}
+        </div>
+      </div>
+    )
+  } else {
+    return (
+      <div>
+        <Link href='/login'>
+          <div className='login'>
                     로그인
-                </div>
-            </Link>
-            <Link href='/signup'>
-                <div className='signup'>
+          </div>
+        </Link>
+        <Link href='/auth-otp'>
+          <div className='login'>
+            OTP
+          </div>
+        </Link>
+
+        <Link href='/signup'>
+          <div className='signup'>
                     회원가입
-                </div>
-            </Link>
-            </div>
-        )
-    }
+          </div>
+        </Link>
+      </div>
+    )
+  }
 }
 
 function Login ({ auth }) {
-    return (
-        <div>
-            {checkLogin(auth)}
-            <style jsx>{`
+  return (
+    <div>
+      {checkLogin(auth)}
+      <style jsx>{`
           div, a, .login {
             flex: 1;
             color: white !important;
@@ -42,8 +48,8 @@ function Login ({ auth }) {
             cursor: pointer;
           }
         `}</style>
-        </div>
-    )
+    </div>
+  )
 }
 
 export default Login

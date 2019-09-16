@@ -1,40 +1,40 @@
 import Link from 'next/link'
 import { connect } from 'react-redux'
 import Login from './login'
-import {Router} from "next/router"
+import { Router } from 'next/router'
 import { logout } from '../../actions'
 
 function Nav ({
-     error,
-     lastUpdate,
-     linkTo,
-     NavigateTo,
-     placeholderData,
-     title,
-     dispatch,
-     auth,
- }) {
-    return (
-        <div className="navigation">
-            <nav>
-                <Link href='/'>
-                    <a>홈</a>
-                </Link>
-                <Link href='/posts/1'>
-                    <a>투자하기</a>
-                </Link>
-                <Link href='/posts/1'>
-                    <a>대출받기</a>
-                </Link>
-                <Link href='/user'>
-                    <a>내 정보 </a>
-                </Link>
-                <Login auth={auth}></Login>
-                <div className="logout" onClick={() => dispatch(logout())}>
+  error,
+  lastUpdate,
+  linkTo,
+  NavigateTo,
+  placeholderData,
+  title,
+  dispatch,
+  auth
+}) {
+  return (
+    <div className="navigation">
+      <nav>
+        <Link href='/'>
+          <a>홈</a>
+        </Link>
+        <Link href='/posts/1'>
+          <a>투자하기</a>
+        </Link>
+        <Link href='/posts/1'>
+          <a>대출받기</a>
+        </Link>
+        <Link href='/user'>
+          <a>내 정보 </a>
+        </Link>
+        <Login auth={auth}></Login>
+        <div className="logout" onClick={() => dispatch(logout())}>
                     로그아웃
-                </div>
-            </nav>
-            <style jsx>{`
+        </div>
+      </nav>
+      <style jsx>{`
           .navigation {
             position: fixed;
             top: 0;
@@ -56,8 +56,8 @@ function Nav ({
             cursor: pointer;
           }
         `}</style>
-        </div>
-    )
+    </div>
+  )
 }
 
 export default connect(state => state)(Nav)

@@ -1,8 +1,8 @@
 module.exports = {
-    webpack: (config, { dev }) => {
-        // Perform customizations to config
+  webpack: (config, { dev }) => {
+    // Perform customizations to config
 
-        // Important: return the modified config
-        return config
-    }
+    // Important: return the modified config
+    return config
+  }
 }

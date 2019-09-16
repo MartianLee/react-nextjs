@@ -1,10 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import SignUpContainer from '../../containers/signUpContainer'
 import Header from '../../components/header'
 import HeaderLayout from '../../components/layout/headerLayout'
-import UserContainer from '../../containers/userContainer'
+import UserContainer from '../../containers/user'
 import { getBalance } from '../../actions'
 
 class User extends React.Component {

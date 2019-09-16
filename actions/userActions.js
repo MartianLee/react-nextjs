@@ -61,3 +61,10 @@ export function getAll () {
   function success (users) { return { type: userConstants.GETALL_SUCCESS, users } }
   function failure (error) { return { type: userConstants.GETALL_FAILURE, error } }
 }
+export function startOtp () {
+  return { type: userConstants.START_OTP }
+}
+
+export function sendOtp () {
+  return { type: userConstants.SEND_OTP }
+}

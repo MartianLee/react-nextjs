@@ -2,17 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'next/router'
 
-import Page from '../../components/page'
-import { loadProductDetailData, getBalance } from '../../actions'
-import Header from '../../components/header'
-import Product from '../../components/products/product'
-import ProductList from '../../components/products/productList'
-import Clock from '../../components/clock'
-import Counter from '../../components/counter'
-import Footer from '../../components/footer'
-import HeaderLayout from '../../components/layout/headerLayout'
-
-import ProductContainer from '../../containers/productContainer'
+import ProductContainer from '../../containers/product'
 
 class ProductDetail extends React.Component {
   static async getInitialProps (props) {
