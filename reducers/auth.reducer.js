@@ -13,9 +13,6 @@ export function auth (state = initialState, action) {
       console.log(action)
       return {
         loggedIn: true,
-        user: {
-          id: action.auth.username
-        },
         access: action.auth.access,
         refresh: action.auth.refresh
       }
@@ -32,6 +29,15 @@ export function auth (state = initialState, action) {
         sendingOtp: false,
         user: {},
         otpStatus: action.otp.status
+      }
+    case userConstants.GET_USER_INFO_SUCCESS:
+      console.log(action.user)
+      return {
+        loggedIn: true,
+        user: {
+          id: action.user.email,
+          is_active: action.user.is_true
+        }
       }
     default:
       return state

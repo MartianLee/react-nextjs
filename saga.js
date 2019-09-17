@@ -6,7 +6,21 @@ import 'isomorphic-unfetch'
 
 import { productConstants, userConstants, walletConstants, configConstants } from './constants'
 
-import { failure, loadDataSuccess, loadProductDataSuccess, loadProductDetailDataSuccess, tickClock, login, loginSuccess, getBalance, getBalanceSuccess, createWalletSuccess, sendCoinsSuccess } from './actions'
+import {
+  failure,
+  loadDataSuccess,
+  loadProductDataSuccess,
+  loadProductDetailDataSuccess,
+  tickClock,
+  login,
+  getUserInfo,
+  loginSuccess,
+  getBalance,
+  getBalanceSuccess,
+  createWalletSuccess,
+  sendCoinsSuccess,
+  getUserInfoSuccess
+} from './actions'
 import Router from 'next/router'
 
 es6promise.polyfill()
@@ -65,9 +79,12 @@ function * userLoginSaga (action) {
     }
     const res = yield fetch(`${configConstants.API_URL}/v1/token/`, requestOptions)
     const data = yield res.json()
-    yield put(loginSuccess({ ...data, ...action.user }))
+    yield put(loginSuccess({ ...data }))
+    yield call(console.log, 'asdfasdfasdf')
+    yield put(getUserInfo(data.access))
+    yield call(console.log, 'rtyrtyrtyrty')
     yield call(Router.push, '/')
-    localStorage.setItem('token', data.access)
+    yield put(localStorage.setItem('token', data.access))
   } catch (err) {
     yield put(failure(err))
   }
@@ -145,7 +162,6 @@ function * sendCoinsSaga (action) {
 }
 
 function * userVerificationSignupSaga (action) {
-  console.log('rqewrqewr')
   try {
     const requestOptions = {
       method: 'POST',
@@ -162,6 +178,21 @@ function * userVerificationSignupSaga (action) {
   }
 }
 
+
+function * loadUserInfoSaga (action) {
+  try {
+    const requestOptions = {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${action.token}` }
+    }
+    const res = yield fetch(`${configConstants.API_URL}/v1/users/info/`, requestOptions)
+    const data = yield res.json()
+    yield put(getUserInfoSuccess(data))
+  } catch (err) {
+    yield put(failure(err))
+  }
+}
+
 function * rootSaga () {
   console.log('rootSaga')
   yield all([
@@ -171,7 +202,7 @@ function * rootSaga () {
     takeLatest(userConstants.LOGIN_REQUEST, userLoginSaga),
     takeLatest(userConstants.LOGOUT, userLogoutSaga),
     takeLatest(userConstants.SEND_VERIFICATION_SIGNUP, userVerificationSignupSaga),
-    takeLatest(productConstants.LOAD_DATA, loadDataSaga),
+    takeLatest(userConstants.GET_USER_INFO, loadUserInfoSaga),
     takeLatest(productConstants.LOAD_PRODUCT_DATA, loadProductDataSaga),
     takeLatest(productConstants.LOAD_PRODUCT_DETAIL_DATA, loadProductDetailDataSaga),
     takeLatest(walletConstants.GET_BALANCE, getWalletBalanceSaga),

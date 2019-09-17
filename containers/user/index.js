@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { connect } from 'react-redux'
 import React from "react";
-import {getBalance, createWallet, sendCoins, loadProductDetailData, logout} from '../../actions';
+import {getBalance, createWallet, sendCoins, loadProductDetailData, getUserInfo} from '../../actions';
 import Product from "../../components/products/product";
 import HeaderLayout from "../../components/layout/headerLayout";
 import Header from "../../components/header";
@@ -47,14 +47,18 @@ class UserContainer extends React.Component {
     }
 
     componentDidMount () {
-        this.getBalance()
+        // this.getBalance()
     }
 
     render () {
+        console.log(this.props.auth)
         return (
             <div>
                 <div>
                     User Info
+                    <p>
+                        You are {this.props.auth.user ? this.props.auth.user.id : ''}
+                    </p>
                     <p> Your wallet address is { this.props.wallet.address ? this.props.wallet.address : '' } </p>
                     <p> You have { this.props.wallet.balance ? this.props.wallet.balance : 0 } Satoshi in your wallet. </p>
                 </div>
