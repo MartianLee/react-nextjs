@@ -2,10 +2,7 @@ import Link from 'next/link'
 import { connect } from 'react-redux'
 import React from "react";
 import {getBalance, createWallet, sendCoins, loadProductDetailData, getUserInfo} from '../../actions';
-import Product from "../../components/products/product";
-import HeaderLayout from "../../components/layout/headerLayout";
-import Header from "../../components/header";
-import Footer from "../../components/footer";
+import UserInfoForm from './UserInfoForm'
 
 class UserContainer extends React.Component {
 
@@ -15,16 +12,13 @@ class UserContainer extends React.Component {
     }
 
     constructor(props) {
-
         super(props)
-
         this.state = {
             address: '',
-            amount: 0
+            amount: 0,
+            isItModifying: false
         };
-
         this.handleChange = this.handleChange.bind(this);
-
     }
 
     getBalance() {
@@ -41,6 +35,11 @@ class UserContainer extends React.Component {
         dispatch(sendCoins({address, amount: parseInt(amount)}))
     }
 
+    changeForm = () => {
+        console.log(this.state.isItModifying)
+        this.setState({ isItModifying: !this.state.isItModifying })
+    }
+
     handleChange(e) {
         const { name, value } = e.target
         this.setState({ [name]: value })
@@ -51,7 +50,6 @@ class UserContainer extends React.Component {
     }
 
     render () {
-        console.log(this.props.auth)
         return (
             <div>
                 <div>
@@ -62,6 +60,12 @@ class UserContainer extends React.Component {
                     <p> Your wallet address is { this.props.wallet.address ? this.props.wallet.address : '' } </p>
                     <p> You have { this.props.wallet.balance ? this.props.wallet.balance : 0 } Satoshi in your wallet. </p>
                 </div>
+                <button onClick={this.changeForm}>
+                    내 정보 수정하기
+                </button>
+                <br/>
+                { this.state.isItModifying }
+                { !!this.state.isItModifying ? <UserInfoForm></UserInfoForm> : '' }
                 <button onClick={() => this.props.dispatch(createWallet(this.props.user))}>
                     Create Wallet
                 </button>

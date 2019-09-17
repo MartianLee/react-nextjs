@@ -1,13 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import Page from '../../components/page'
-import LoginContainer from '../../containers/login'
 import Header from '../../components/header'
 import HeaderLayout from '../../components/layout/headerLayout'
-import Link from "next/link";
+import PasswordResetContainer from '../../containers/user/PasswordResetContainer'
+import { getBalance } from '../../actions'
 
-class Login extends React.Component {
+class PasswordReset extends React.Component {
   static async getInitialProps (props) {
     const { store, isServer } = props.ctx
     return { isServer }
@@ -20,11 +19,10 @@ class Login extends React.Component {
     return (
       <HeaderLayout auth={this.props.auth}>
         <Header title={'Squared'}/>
-        <LoginContainer title='Login Page'/>
-        <Link href='/user/password_reset'>비밀번호 찾기</Link>
+        <PasswordResetContainer></PasswordResetContainer>
       </HeaderLayout>
     )
   }
 }
 
-export default connect()(Login)
+export default connect()(PasswordReset)

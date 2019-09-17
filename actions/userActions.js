@@ -64,7 +64,7 @@ export function getAll () {
 
 export function sendVerificationSignup (code) {
   console.log({ type: userConstants.SEND_VERIFICATION_SIGNUP, code })
-  const data = {code: code}
+  const data = { code: code }
   return { type: userConstants.SEND_VERIFICATION_SIGNUP, data }
 }
 
@@ -86,4 +86,20 @@ export function getUserInfo (token) {
 
 export function getUserInfoSuccess (user) {
   return { type: userConstants.GET_USER_INFO_SUCCESS, user }
+}
+
+export function requestPasswordReset (user) {
+  return { type: userConstants.REQUEST_PASSWORD_RESET, user }
+}
+
+export function updatePassword (user) {
+  return { type: userConstants.UPDATE_PASSWORD, user }
+}
+
+export function updateUserInfo (user) {
+  return { type: userConstants.UPDATE_USER_INFO, user }
+}
+
+export function updateUserInfoSuccess (user) {
+  return { type: userConstants.UPDATE_USER_INFO_SUCCESS, user }
 }

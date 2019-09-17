@@ -47,7 +47,7 @@ class SignUpContainer extends React.Component {
             <label htmlFor="username">Username</label>
             <input type="text" className="form-control" name="username" value={this.username}
               onChange={this.handleChange}/>
-            {this.submitted && !username &&
+            {this.submitted && !this.username &&
                         <div className="help-block">Username is required</div>
             }
           </div>
@@ -68,7 +68,7 @@ class SignUpContainer extends React.Component {
             }
           </div>
           <div className="form-group">
-            <button className="btn btn-primary">Login</button>
+            <button className="btn btn-primary">Sign Up</button>
             {this.loggingIn &&
                         <img
                           src="image"/>

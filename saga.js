@@ -193,6 +193,36 @@ function * loadUserInfoSaga (action) {
   }
 }
 
+function * passwordResetSaga (action) {
+  try {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(action.user)
+    }
+    const res = yield fetch(`${configConstants.API_URL}/v1/users/reset_password/`, requestOptions)
+    const data = yield res.json()
+    yield call(Router.push, '/')
+  } catch (err) {
+    yield put(failure(err))
+  }
+}
+
+function * passwordUpdateSaga (action) {
+  try {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(action.user)
+    }
+    const res = yield fetch(`${configConstants.API_URL}/v1/users/verification/password/`, requestOptions)
+    const data = yield res.json()
+    yield call(Router.push, '/')
+  } catch (err) {
+    yield put(failure(err))
+  }
+}
+
 function * rootSaga () {
   console.log('rootSaga')
   yield all([
@@ -203,6 +233,8 @@ function * rootSaga () {
     takeLatest(userConstants.LOGOUT, userLogoutSaga),
     takeLatest(userConstants.SEND_VERIFICATION_SIGNUP, userVerificationSignupSaga),
     takeLatest(userConstants.GET_USER_INFO, loadUserInfoSaga),
+    takeLatest(userConstants.REQUEST_PASSWORD_RESET, passwordResetSaga),
+    takeLatest(userConstants.UPDATE_PASSWORD, passwordUpdateSaga),
     takeLatest(productConstants.LOAD_PRODUCT_DATA, loadProductDataSaga),
     takeLatest(productConstants.LOAD_PRODUCT_DETAIL_DATA, loadProductDetailDataSaga),
     takeLatest(walletConstants.GET_BALANCE, getWalletBalanceSaga),
