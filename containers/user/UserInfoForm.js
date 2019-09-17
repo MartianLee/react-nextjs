@@ -13,15 +13,19 @@ class UserInfoForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      password: ''
+      password: '',
+      firstName: this.props.auth.user.first_name,
+      lastName: this.props.auth.user.last_name
     };
     this.handleChange = this.handleChange.bind(this);
   }
 
   updateUserInfo = () => {
-    const { password } = this.state;
+    const { password, firstName, lastName } = this.state;
     const { dispatch } = this.props;
-    dispatch(updateUserInfo({password}))
+    console.log({password, first_name: firstName, last_name: lastName})
+    dispatch(updateUserInfo({user: {password, first_name: firstName, last_name: lastName},
+                                  token: this.props.auth.access}))
   }
 
   handleChange(e) {
@@ -38,6 +42,14 @@ class UserInfoForm extends React.Component {
         <div>
           Password :
           <input value={this.password} onChange={this.handleChange} name='password'/>
+        </div>
+        <div>
+          Last Name (성) :
+          <input value={this.lastName} onChange={this.handleChange} name='lastName'/>
+        </div>
+        <div>
+          First Name (이름) :
+          <input value={this.firstName} onChange={this.handleChange} name='firstName'/>
         </div>
         <button onClick={this.updateUserInfo}>
           수정하기

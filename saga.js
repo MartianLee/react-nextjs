@@ -223,6 +223,23 @@ function * passwordUpdateSaga (action) {
   }
 }
 
+function * userInfoUpdateSaga (action) {
+  try {
+    const requestOptions = {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${action.data.token}` },
+      body: JSON.stringify(action.data.user)
+    }
+    console.log(action)
+    const res = yield fetch(`${configConstants.API_URL}/v1/users/update/`, requestOptions)
+    const data = yield res.json()
+    yield loadUserInfoSaga(action.data)
+    // yield call(Router.push, '/')
+  } catch (err) {
+    yield put(failure(err))
+  }
+}
+
 function * rootSaga () {
   console.log('rootSaga')
   yield all([
@@ -235,6 +252,7 @@ function * rootSaga () {
     takeLatest(userConstants.GET_USER_INFO, loadUserInfoSaga),
     takeLatest(userConstants.REQUEST_PASSWORD_RESET, passwordResetSaga),
     takeLatest(userConstants.UPDATE_PASSWORD, passwordUpdateSaga),
+    takeLatest(userConstants.UPDATE_USER_INFO, userInfoUpdateSaga),
     takeLatest(productConstants.LOAD_PRODUCT_DATA, loadProductDataSaga),
     takeLatest(productConstants.LOAD_PRODUCT_DETAIL_DATA, loadProductDetailDataSaga),
     takeLatest(walletConstants.GET_BALANCE, getWalletBalanceSaga),

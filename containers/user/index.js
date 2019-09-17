@@ -57,6 +57,9 @@ class UserContainer extends React.Component {
                     <p>
                         You are {this.props.auth.user ? this.props.auth.user.id : ''}
                     </p>
+                    <p>
+                        Your Name is {this.props.auth.user ? `${this.props.auth.user.firstName} ${this.props.auth.user.lastName}` : ''}
+                    </p>
                     <p> Your wallet address is { this.props.wallet.address ? this.props.wallet.address : '' } </p>
                     <p> You have { this.props.wallet.balance ? this.props.wallet.balance : 0 } Satoshi in your wallet. </p>
                 </div>

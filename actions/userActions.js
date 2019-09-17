@@ -96,10 +96,14 @@ export function updatePassword (user) {
   return { type: userConstants.UPDATE_PASSWORD, user }
 }
 
-export function updateUserInfo (user) {
-  return { type: userConstants.UPDATE_USER_INFO, user }
+export function updateUserInfo (data) {
+  return { type: userConstants.UPDATE_USER_INFO, data }
 }
 
 export function updateUserInfoSuccess (user) {
   return { type: userConstants.UPDATE_USER_INFO_SUCCESS, user }
+}
+
+export function addTokenToStore (token) {
+  return { type: userConstants.ADD_TOKEN_TO_STORE, token }
 }

@@ -12,6 +12,7 @@ export function auth (state = initialState, action) {
     case userConstants.LOGIN_SUCCESS:
       console.log(action)
       return {
+        ...state,
         loggedIn: true,
         access: action.auth.access,
         refresh: action.auth.refresh
@@ -33,11 +34,20 @@ export function auth (state = initialState, action) {
     case userConstants.GET_USER_INFO_SUCCESS:
       console.log(action.user)
       return {
+        ...state,
         loggedIn: true,
         user: {
           id: action.user.email,
+          firstName: action.user.first_name,
+          lastName: action.user.last_name,
           is_active: action.user.is_true
         }
+      }
+    case userConstants.ADD_TOKEN_TO_STORE:
+      return {
+        loggedIn: true,
+        access: action.token,
+        // refresh: action.auth.refresh
       }
     default:
       return state

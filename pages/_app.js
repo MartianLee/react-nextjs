@@ -6,7 +6,7 @@ import withReduxSaga from 'next-redux-saga'
 
 import createStore from '../store'
 import getToken from '../util/getToken'
-import { getUserInfo } from '../actions'
+import { getUserInfo, addTokenToStore } from '../actions'
 
 class MyApp extends App {
   static async getInitialProps ({ Component, ctx }) {
@@ -23,6 +23,7 @@ class MyApp extends App {
     const token = getToken()
     console.log(token)
     if (token) {
+      this.props.store.dispatch(addTokenToStore(token))
       this.props.store.dispatch(getUserInfo(token))
     }
   }
