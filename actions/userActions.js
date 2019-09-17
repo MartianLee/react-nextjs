@@ -1,4 +1,4 @@
-import { productConstants, userConstants } from '../constants'
+import { userConstants } from '../constants'
 
 import { userService } from '../services'
 import { alertActions } from './'
@@ -61,6 +61,13 @@ export function getAll () {
   function success (users) { return { type: userConstants.GETALL_SUCCESS, users } }
   function failure (error) { return { type: userConstants.GETALL_FAILURE, error } }
 }
+
+export function sendVerificationSignup (code) {
+  console.log({ type: userConstants.SEND_VERIFICATION_SIGNUP, code })
+  const data = {code: code}
+  return { type: userConstants.SEND_VERIFICATION_SIGNUP, data }
+}
+
 export function startOtp () {
   return { type: userConstants.START_OTP }
 }

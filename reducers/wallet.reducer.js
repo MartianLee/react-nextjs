@@ -3,7 +3,6 @@ import { walletConstants } from '../constants'
 export const initialState = { address: '', balance: '', gettingBalance: false, sendingCoins: false, creatingWallet: false }
 
 export function wallet (state = initialState, action) {
-  console.log(action)
   switch (action.type) {
     case walletConstants.GET_BALANCE_SUCCESS:
       return {

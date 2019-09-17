@@ -83,7 +83,6 @@ function * userSignUpSaga (action) {
     const res = yield fetch(`${configConstants.API_URL}/v1/users/signup/`, requestOptions)
     const data = yield res.json()
     const user = { email: action.user.email, password: action.user.password }
-    yield put(login(user))
   } catch (err) {
     yield put(failure(err))
   }
@@ -145,13 +144,33 @@ function * sendCoinsSaga (action) {
   }
 }
 
+function * userVerificationSignupSaga (action) {
+  console.log('rqewrqewr')
+  try {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(action.data)
+    }
+    const res = yield fetch(`${configConstants.API_URL}/v1/users/verification/`, requestOptions)
+    const data = yield res.json()
+    console.log(data)
+    // set toast message from data
+    yield call(Router.push, '/')
+  } catch (err) {
+    yield put(failure(err))
+  }
+}
+
 function * rootSaga () {
+  console.log('rootSaga')
   yield all([
     call(runClockSaga),
     // takeLatest(alarmConstants.SHOW_ALARM, showaAlarmSaga),
     takeLatest(userConstants.SIGN_UP, userSignUpSaga),
     takeLatest(userConstants.LOGIN_REQUEST, userLoginSaga),
     takeLatest(userConstants.LOGOUT, userLogoutSaga),
+    takeLatest(userConstants.SEND_VERIFICATION_SIGNUP, userVerificationSignupSaga),
     takeLatest(productConstants.LOAD_DATA, loadDataSaga),
     takeLatest(productConstants.LOAD_PRODUCT_DATA, loadProductDataSaga),
     takeLatest(productConstants.LOAD_PRODUCT_DETAIL_DATA, loadProductDetailDataSaga),
