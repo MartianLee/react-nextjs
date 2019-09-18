@@ -7,6 +7,7 @@ import withReduxSaga from 'next-redux-saga'
 import createStore from '../store'
 import getToken from '../util/getToken'
 import { getUserInfo, addTokenToStore } from '../actions'
+import Message from "../components/message";
 
 class MyApp extends App {
   static async getInitialProps ({ Component, ctx }) {
@@ -30,6 +31,7 @@ class MyApp extends App {
 
   render () {
     const { Component, pageProps, store } = this.props
+    console.log(this.props)
     return (
       <Provider store={store}>
         <Component {...pageProps} />

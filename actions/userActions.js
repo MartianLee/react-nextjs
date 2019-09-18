@@ -1,7 +1,6 @@
 import { userConstants } from '../constants'
 
 import { userService } from '../services'
-import { alertActions } from './'
 
 export function signUp (user) {
   const userInfo = { email: user.username, password1: user.password, password2: user.password2 }

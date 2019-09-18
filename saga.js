@@ -4,7 +4,7 @@ import { all, call, delay, put, cancel, take, takeLatest } from 'redux-saga/effe
 import es6promise from 'es6-promise'
 import 'isomorphic-unfetch'
 
-import { productConstants, userConstants, walletConstants, configConstants } from './constants'
+import {productConstants, userConstants, walletConstants, configConstants, alertConstants} from './constants'
 
 import {
   failure,
@@ -19,7 +19,10 @@ import {
   getBalanceSuccess,
   createWalletSuccess,
   sendCoinsSuccess,
-  getUserInfoSuccess
+  getUserInfoSuccess,
+  errorMessage,
+  successMessage,
+  clearMessage
 } from './actions'
 import Router from 'next/router'
 
@@ -81,7 +84,7 @@ function * userLoginSaga (action) {
     const data = yield res.json()
     console.log(data)
     if (data.detail === 'No active account found with the given credentials') {
-      alert('login error !')
+      yield put(errorMessage('login error !'))
       yield cancel()
     }
     yield put(loginSuccess({ ...data }))
@@ -243,6 +246,24 @@ function * userInfoUpdateSaga (action) {
   }
 }
 
+function * alertSuccessSaga (action) {
+  try {
+    yield delay(2000)
+    yield put(clearMessage())
+  } catch (err) {
+    yield put(failure(err))
+  }
+}
+
+function * alertErrorSaga (action) {
+  try {
+    yield delay(2000)
+    yield put(clearMessage())
+  } catch (err) {
+    yield put(failure(err))
+  }
+}
+
 function * rootSaga () {
   console.log('rootSaga')
   yield all([
@@ -260,7 +281,9 @@ function * rootSaga () {
     takeLatest(productConstants.LOAD_PRODUCT_DETAIL_DATA, loadProductDetailDataSaga),
     takeLatest(walletConstants.GET_BALANCE, getWalletBalanceSaga),
     takeLatest(walletConstants.CREATE_WALLET, createWalletSaga),
-    takeLatest(walletConstants.SEND_COINS, sendCoinsSaga)
+    takeLatest(walletConstants.SEND_COINS, sendCoinsSaga),
+    takeLatest(alertConstants.SUCCESS, alertSuccessSaga),
+    takeLatest(alertConstants.ERROR, alertErrorSaga)
   ])
 }
 

@@ -1,6 +1,7 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import React from 'react'
 import { ServerStyleSheet } from 'styled-components'
+import Message from "../components/message";
 // import ReCAPTCHA from "react-google-recaptcha";
 
 class MyDocument extends Document {
