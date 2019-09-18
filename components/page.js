@@ -29,8 +29,6 @@ function Page ({
       <Header title={'Squared'}/>
       {product.productDetailData ? `Product ID ${product.productDetailData.id}` : null}
       <ProductList products={product.productData}/>
-      <Clock lastUpdate={product.lastUpdate} light={product.light} />
-      <Counter counter={product.count}/>
     </HeaderLayout>
   )
 }

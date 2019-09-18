@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'next/router'
+import HeaderLayout from '../../components/layout/headerLayout'
+import Header from '../../components/header'
 
 import ProductContainer from '../../containers/product'
 
@@ -16,12 +18,11 @@ class ProductDetail extends React.Component {
   render () {
     console.log(this.props)
     return (
-      <HeaderLayout auth={auth}>
+      <HeaderLayout>
         <Header title={'Squared'}/>
         <ProductContainer id={this.props.query.id}></ProductContainer>
       </HeaderLayout>
     )
-    // <Page title='Post {pid}' linkTo='/' NavigateTo={`product/${this.props.query.id}`} id={this.props.query.id} />
   }
 }
 

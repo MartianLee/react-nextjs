@@ -27,6 +27,10 @@ function Product ({
   `
   const ImageWrapper = styled.div`
     text-align: center;
+    img {
+      max-width: 200px;
+      max-height: 150px;
+    }
   `
 
   const ProgressBarWrapper = styled.div`
@@ -56,20 +60,20 @@ function Product ({
       margin-right: 10%;
     }
    `
-
+  console.log(productDetail)
   return (
     <Card>
       <Link prefetch href={`/products/${productDetail.id}`}>
         <div>
           <ImageWrapper>
-            <img src={productDetail.thumbnailUrl} />
+            <img src={productDetail.thumbnail} />
           </ImageWrapper>
           <ProgressBarWrapper>
             <ProgressBar></ProgressBar>
           </ProgressBarWrapper>
           <Description>
             <div>
-              {productDetail.title}
+              {productDetail.name}
             </div>
             <ButtonWrapper>
               <Button>

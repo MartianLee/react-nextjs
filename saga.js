@@ -55,7 +55,7 @@ function * loadDataSaga () {
 
 function * loadProductDataSaga () {
   try {
-    const res = yield fetch(`${configConstants.TEST_API_URL}/photos`)
+    const res = yield fetch(`${configConstants.API_URL}/v1/products/`)
     const productData = yield res.json()
     yield put(loadProductDataSuccess(productData))
   } catch (err) {
@@ -65,7 +65,7 @@ function * loadProductDataSaga () {
 
 function * loadProductDetailDataSaga (action) {
   try {
-    const res = yield fetch(`${configConstants.TEST_API_URL}/photos/${action.id}`)
+    const res = yield fetch(`${configConstants.API_URL}/v1/products/${action.id}`)
     const productData = yield res.json()
     yield put(loadProductDetailDataSuccess(productData))
   } catch (err) {
