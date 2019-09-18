@@ -90,6 +90,7 @@ function * userLoginSaga (action) {
     yield put(loginSuccess({ ...data }))
     yield put(getUserInfo(data.access))
     yield call(Router.push, '/')
+    yield put(successMessage('login success!'))
     yield put(localStorage.setItem('token', data.access))
   } catch (err) {
     yield put(failure(err))
@@ -106,6 +107,8 @@ function * userSignUpSaga (action) {
     const res = yield fetch(`${configConstants.API_URL}/v1/users/signup/`, requestOptions)
     const data = yield res.json()
     const user = { email: action.user.email, password: action.user.password }
+    yield put(successMessage('signup success!'))
+    yield call(Router.push, '/')
   } catch (err) {
     yield put(failure(err))
   }
