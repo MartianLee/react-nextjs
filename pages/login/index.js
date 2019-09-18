@@ -22,6 +22,12 @@ class Login extends React.Component {
         <Header title={'Squared'}/>
         <LoginContainer title='Login Page'/>
         <Link href='/user/password_reset'><a>비밀번호 찾기</a></Link>
+        <Link href='/auth-otp'>
+          <a> OTP </a>
+        </Link>
+        <Link href='/signup'>
+          <a> 회원가입 </a>
+        </Link>
       </HeaderLayout>
     )
   }

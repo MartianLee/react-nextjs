@@ -17,7 +17,7 @@ class AuthOtp extends React.Component {
 
   render () {
     return (
-      <HeaderLayout auth={this.props.auth}>
+      <HeaderLayout>
         <Header title={'Squared'}/>
         <AuthContainer title='Auth OTP Page'/>
       </HeaderLayout>

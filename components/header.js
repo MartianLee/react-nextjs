@@ -17,7 +17,7 @@ function Header ({
       </div>
       <style jsx>{`
           div {
-            margin-top: 50px;
+            margin-top: 52px;
             width: 100%;
           }
           .title {

@@ -3,9 +3,10 @@ import Nav from '../nav'
 import React from 'react'
 import Message from "../message";
 import styled from "styled-components";
+import Footer from "../footer";
 
-const Layout = styled.div`
-  padding: 5px;
+const MainComponent = styled.div`
+  min-height: calc( 100vh - 52px )
 `
 
 class headerLayout extends React.Component {
@@ -19,7 +20,10 @@ class headerLayout extends React.Component {
       <div>
         { this.props.alert.status ? <Message/> : '' }
         <Nav url={['posts', 'products']} auth={this.props.auth}/>
-        {this.props.children}
+        <MainComponent>
+          {this.props.children}
+        </MainComponent>
+        <Footer></Footer>
       </div>
     )
   }

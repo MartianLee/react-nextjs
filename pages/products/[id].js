@@ -16,9 +16,10 @@ class ProductDetail extends React.Component {
   render () {
     console.log(this.props)
     return (
-      <div>
+      <HeaderLayout auth={auth}>
+        <Header title={'Squared'}/>
         <ProductContainer id={this.props.query.id}></ProductContainer>
-      </div>
+      </HeaderLayout>
     )
     // <Page title='Post {pid}' linkTo='/' NavigateTo={`product/${this.props.query.id}`} id={this.props.query.id} />
   }

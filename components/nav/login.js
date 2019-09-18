@@ -18,17 +18,6 @@ function checkLogin (auth) {
                     로그인
           </div>
         </Link>
-        <Link href='/auth-otp'>
-          <div className='login'>
-            OTP
-          </div>
-        </Link>
-
-        <Link href='/signup'>
-          <div className='signup'>
-                    회원가입
-          </div>
-        </Link>
       </div>
     )
   }

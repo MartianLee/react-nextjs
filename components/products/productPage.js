@@ -12,15 +12,6 @@ import React from 'react'
 import Product from './products/product'
 
 function Page ({
-  error,
-  lastUpdate,
-  light,
-  linkTo,
-  NavigateTo,
-  placeholderData,
-  productData,
-  id,
-  title,
   auth,
   product
 }) {
@@ -28,9 +19,7 @@ function Page ({
     <HeaderLayout auth={auth}>
       <Header title={'Squared'}/>
       {product.productDetailData ? `Product ID ${product.productDetailData.id}` : null}
-      <ProductList products={product.productData}/>
-      <Clock lastUpdate={product.lastUpdate} light={product.light} />
-      <Counter counter={product.count}/>
+      {product.productDetailData ? <Product productDetail={product.productDetailData} /> : null}
     </HeaderLayout>
   )
 }
