@@ -1,6 +1,6 @@
 /* global fetch */
 
-import { all, call, delay, put, take, takeLatest } from 'redux-saga/effects'
+import { all, call, delay, put, cancel, take, takeLatest } from 'redux-saga/effects'
 import es6promise from 'es6-promise'
 import 'isomorphic-unfetch'
 
@@ -79,10 +79,13 @@ function * userLoginSaga (action) {
     }
     const res = yield fetch(`${configConstants.API_URL}/v1/token/`, requestOptions)
     const data = yield res.json()
+    console.log(data)
+    if (data.detail === 'No active account found with the given credentials') {
+      alert('login error !')
+      yield cancel()
+    }
     yield put(loginSuccess({ ...data }))
-    yield call(console.log, 'asdfasdfasdf')
     yield put(getUserInfo(data.access))
-    yield call(console.log, 'rtyrtyrtyrty')
     yield call(Router.push, '/')
     yield put(localStorage.setItem('token', data.access))
   } catch (err) {

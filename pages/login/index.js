@@ -21,7 +21,7 @@ class Login extends React.Component {
       <HeaderLayout auth={this.props.auth}>
         <Header title={'Squared'}/>
         <LoginContainer title='Login Page'/>
-        <Link href='/user/password_reset'>비밀번호 찾기</Link>
+        <Link href='/user/password_reset'><a>비밀번호 찾기</a></Link>
       </HeaderLayout>
     )
   }
