@@ -23,8 +23,8 @@ function Nav ({
         <Link href='/posts/1'>
           <a>투자하기</a>
         </Link>
-        <Link href='/posts/1'>
-          <a>대출받기</a>
+        <Link href='/assets/status'>
+          <a>나의 자산</a>
         </Link>
         <Link href='/user'>
           <a>내 정보 </a>

@@ -4,7 +4,7 @@ import { all, call, delay, put, cancel, take, takeLatest } from 'redux-saga/effe
 import es6promise from 'es6-promise'
 import 'isomorphic-unfetch'
 
-import {productConstants, userConstants, walletConstants, configConstants, alertConstants} from './constants'
+import {productConstants, userConstants, walletConstants, configConstants, alertConstants, metaConstants} from './constants'
 
 import {
   failure,
@@ -25,6 +25,7 @@ import {
   clearMessage
 } from './actions'
 import Router from 'next/router'
+import {getMetaCoinSuccess} from "./actions/metaAction";
 
 es6promise.polyfill()
 
@@ -267,6 +268,20 @@ function * alertErrorSaga (action) {
   }
 }
 
+function * getMetaCoinSaga (action) {
+  try {
+    const requestOptions = {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    }
+    const res = yield fetch(`${configConstants.API_URL}/v1/metadata/coin/`, requestOptions)
+    const data = yield res.json()
+    yield put(getMetaCoinSuccess(data))
+  } catch (err) {
+    yield put(failure(err))
+  }
+}
+
 function * rootSaga () {
   console.log('rootSaga')
   yield all([
@@ -286,7 +301,8 @@ function * rootSaga () {
     takeLatest(walletConstants.CREATE_WALLET, createWalletSaga),
     takeLatest(walletConstants.SEND_COINS, sendCoinsSaga),
     takeLatest(alertConstants.SUCCESS, alertSuccessSaga),
-    takeLatest(alertConstants.ERROR, alertErrorSaga)
+    takeLatest(alertConstants.ERROR, alertErrorSaga),
+    takeLatest(metaConstants.GET_COIN, getMetaCoinSaga)
   ])
 }
 
