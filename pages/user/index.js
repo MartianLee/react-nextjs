@@ -17,7 +17,7 @@ class User extends React.Component {
 
   render () {
     return (
-      <HeaderLayout auth={this.props.auth}>
+      <HeaderLayout>
         <Header title={'Squared'}/>
         <UserContainer></UserContainer>
       </HeaderLayout>

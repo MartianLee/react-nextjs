@@ -16,7 +16,7 @@ class SignUp extends React.Component {
 
   render () {
     return (
-      <HeaderLayout auth={this.props.auth}>
+      <HeaderLayout>
         <Header title={'Squared'}/>
         <SignUpContainer title='SignUp Page'/>
       </HeaderLayout>

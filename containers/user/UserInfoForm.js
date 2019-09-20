@@ -41,7 +41,7 @@ class UserInfoForm extends React.Component {
       <div>
         <div>
           Password :
-          <input value={this.password} onChange={this.handleChange} name='password'/>
+          <input type="password" value={this.password} onChange={this.handleChange} name='password'/>
         </div>
         <div>
           Last Name (성) :

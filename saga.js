@@ -1,10 +1,10 @@
 /* global fetch */
 
-import { all, call, delay, put, cancel, take, takeLatest } from 'redux-saga/effects'
+import { all, call, delay, put, cancel, take, takeLatest, takeEvery, select } from 'redux-saga/effects'
 import es6promise from 'es6-promise'
 import 'isomorphic-unfetch'
 
-import {productConstants, userConstants, walletConstants, configConstants, alertConstants, metaConstants} from './constants'
+import {productConstants, userConstants, walletConstants, configConstants, alertConstants, metaConstants, assetConstants} from './constants'
 
 import {
   failure,
@@ -22,10 +22,13 @@ import {
   getUserInfoSuccess,
   errorMessage,
   successMessage,
-  clearMessage
+  clearMessage,
+  loadAssetsSuccess,
+  addTokenToStore
 } from './actions'
 import Router from 'next/router'
-import {getMetaCoinSuccess} from "./actions/metaAction";
+import {getMetaCoinSuccess} from "./actions/metaActions"
+import getToken from './util/getToken'
 
 es6promise.polyfill()
 
@@ -191,9 +194,11 @@ function * userVerificationSignupSaga (action) {
 
 function * loadUserInfoSaga (action) {
   try {
+    const state = yield select()
+    const token = state.auth.access
     const requestOptions = {
       method: 'GET',
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${action.token}` }
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }
     }
     const res = yield fetch(`${configConstants.API_URL}/v1/users/info/`, requestOptions)
     const data = yield res.json()
@@ -235,9 +240,11 @@ function * passwordUpdateSaga (action) {
 
 function * userInfoUpdateSaga (action) {
   try {
+    const state = yield select()
+    const token = state.auth.access
     const requestOptions = {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${action.data.token}` },
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
       body: JSON.stringify(action.data.user)
     }
     console.log(action)
@@ -282,8 +289,41 @@ function * getMetaCoinSaga (action) {
   }
 }
 
+function * loadAssetsSaga (action) {
+  try {
+    const state = yield select()
+    const token = state.auth.access
+    const requestOptions = {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }
+    }
+    console.log(action.token)
+    const res = yield fetch(`${configConstants.API_URL}/v1/users/asset/`, requestOptions)
+    const data = yield res.json()
+    yield put(loadAssetsSuccess(data))
+  } catch (err) {
+    yield put(failure(err))
+  }
+}
+
+function * beforeAction () {
+  const action = yield take('*')
+  const state = yield select()
+  if (!state.auth.access) {
+    const token = yield call(getToken)
+    console.log(token)
+    if (!!token && action.type !== userConstants.ADD_TOKEN_TO_STORE) {
+      yield put(addTokenToStore(token))
+    }
+  }
+  yield call(console.log, ('action', action))
+  yield call(console.log, ('state after', state))
+}
+
 function * rootSaga () {
-  console.log('rootSaga')
+  console.log('Saga Initialized')
+
+  yield takeEvery('*', beforeAction)
   yield all([
     call(runClockSaga),
     // takeLatest(alarmConstants.SHOW_ALARM, showaAlarmSaga),
@@ -302,7 +342,8 @@ function * rootSaga () {
     takeLatest(walletConstants.SEND_COINS, sendCoinsSaga),
     takeLatest(alertConstants.SUCCESS, alertSuccessSaga),
     takeLatest(alertConstants.ERROR, alertErrorSaga),
-    takeLatest(metaConstants.GET_COIN, getMetaCoinSaga)
+    takeLatest(metaConstants.GET_COIN, getMetaCoinSaga),
+    takeLatest(assetConstants.LOAD_ASSETS, loadAssetsSaga)
   ])
 }
 
