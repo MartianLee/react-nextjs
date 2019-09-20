@@ -6,13 +6,15 @@ import { product } from './product.reducer'
 import { auth } from './auth.reducer'
 import { wallet } from './wallet.reducer'
 import { meta } from './meta.reducer'
+import { asset } from './asset.reducer'
 
 const rootReducer = combineReducers({
   auth,
   alert,
   product,
   wallet,
-  meta
+  meta,
+  asset
 })
 
 export default rootReducer

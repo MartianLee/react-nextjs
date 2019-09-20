@@ -1,9 +1,14 @@
-import Link from 'next/link'
 import { connect } from 'react-redux'
 import React from 'react'
 import {loadProductDetailData, logout} from '../../actions'
 import CoinList from '../../components/assets/coinList'
 import CoinStatus from '../../components/assets/coinStatus'
+import styled from "styled-components";
+import { loadAssets } from '../../actions'
+
+const AssetStatus = styled.div`
+  display: flex;
+`
 
 class AssetsStatus extends React.Component {
 
@@ -24,7 +29,11 @@ class AssetsStatus extends React.Component {
   }
 
   componentDidMount () {
-    this.props.dispatch(loadProductDetailData(this.props.id))
+    this.props.dispatch(loadAssets(this.props.auth.access))
+  }
+
+  getAsset = () => {
+    this.props.dispatch(loadAssets(this.props.auth.access))
   }
 
   coinSelected = (value) => {
@@ -32,11 +41,14 @@ class AssetsStatus extends React.Component {
   }
 
   render () {
-    // console.log(selectedCoin)
     return (
       <div>
+      <button onClick={this.getAsset}>Get AssetStatus</button>
+      <AssetStatus>
         <CoinList coinList={this.props.meta.coinList} coinSelected={this.coinSelected}></CoinList>
-        {this.props.meta.coinList.length > 0 ? <CoinStatus selectedCoin={this.state.selectedCoin} coinList={this.props.meta.coinList}/> : ''}
+        {this.props.meta.coinList.length > 0 ?
+          <CoinStatus selectedCoin={this.state.selectedCoin} coinList={this.props.meta.coinList} balanceList={this.props.asset.asset.coins}/> : ''}
+      </AssetStatus>
       </div>
     )
   }

@@ -5,10 +5,6 @@ import styled from 'styled-components'
 
 function Product ({
   error,
-  lastUpdate,
-  light,
-  linkTo,
-  NavigateTo,
   productDetail,
   title
 }) {
@@ -60,7 +56,6 @@ function Product ({
       margin-right: 10%;
     }
    `
-  console.log(productDetail)
   return (
     <Card>
       <Link prefetch href={`/products/${productDetail.id}`}>

@@ -8,6 +8,7 @@ const Message = styled.div`
   top: 10px;
   width: 70%;
   margin-left: 15%;
+  transition: all 300ms ease-out;
 `
 const MessageText = styled.div`
   text-align: center;

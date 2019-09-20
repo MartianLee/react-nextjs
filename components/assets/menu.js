@@ -9,36 +9,37 @@ function Menu ({
     width: 10%;
   `
 
-  const ButtonWrapper = styled.button`
+  const ButtonWrapper = styled.div`
     width: 100%;
     background-color: #eee;
+    padding: 5px 25px;
     margin-bottom: 20px;
    `
   return (
     <Menu>
       <ButtonWrapper>
         <Link href='/assets/status'>
-          <button>
+          <div>
             자산 현황
-          </button>
+          </div>
         </Link>
       </ButtonWrapper>
       <ButtonWrapper>
         <Link href='/assets/history'>
-          <button>
+          <div>
           투자 내역
-          </button>
+          </div>
         </Link>
       </ButtonWrapper>
       <ButtonWrapper>
         <Link href='/assets/deposit'>
-          <button>
+          <div>
             입출금내역
-          </button>
+          </div>
         </Link>
       </ButtonWrapper>
     </Menu>
   )
 }
 
-export default connect(state => state)(Product)
+export default connect(state => state)(Menu)

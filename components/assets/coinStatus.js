@@ -5,37 +5,49 @@ import styled from 'styled-components'
 
 function CoinStatus ({
   coinList,
-  selectedCoin
+  selectedCoin,
+  balanceList = []
 }) {
   const CoinStatus = styled.article`
     margin-top: 20px;
     width: 100%;
     display: block;
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.25);
-    }
   `
-
-  const ImageWrapper = styled.div`
+  const StatusHeader = styled.div`
+    margin-bottom: 30px;
+  `
+  const Balance = styled.div`
+    float: right;
+    margin-right: 20px;
+  `
+  const ButtonWrapper = styled.div`
     text-align: center;
-    img {
-      max-width: 200px;
-      max-height: 150px;
-    }
   `
   const Button = styled.button`
-    width: 40%;
+    width: 35%;
     &:not(:last-child) {
-      margin-right: 10%;
+      margin-right: 5%;
     }
    `
-  console.log(coinList)
-  console.log(selectedCoin)
-
+  console.log(balanceList[selectedCoin])
   return (
     <CoinStatus>
-      Coin Status
-      {coinList[selectedCoin].korean_name}
+      <StatusHeader>
+        <h2>Coin Status</h2>
+        <Balance>
+          {balanceList.length > selectedCoin ? `${balanceList[selectedCoin].amount} ${balanceList[selectedCoin].symbol}` : ''}
+          <br/>
+          {balanceList.length > selectedCoin ? balanceList[selectedCoin].satoshi_amount : ''}
+        </Balance>
+        <h4>{coinList[selectedCoin].korean_name}</h4>
+      </StatusHeader>
+      <ButtonWrapper>
+        <Button>입금하기</Button>
+        <Button>출금하기</Button>
+      </ButtonWrapper>
+      <div>
+        History
+      </div>
     </CoinStatus>
   )
 }

@@ -8,7 +8,7 @@ import createStore from '../store'
 import getToken from '../util/getToken'
 import { getUserInfo, addTokenToStore } from '../actions'
 import Message from "../components/message";
-import { getMetaCoin } from "../actions/metaAction"
+import { getMetaCoin } from "../actions/metaActions"
 
 class MyApp extends App {
   static async getInitialProps ({ Component, ctx }) {
@@ -23,12 +23,7 @@ class MyApp extends App {
 
   componentDidMount () {
     this.props.store.dispatch(getMetaCoin())
-    const token = getToken()
-    console.log(token)
-    if (token) {
-      this.props.store.dispatch(addTokenToStore(token))
-      this.props.store.dispatch(getUserInfo(token))
-    }
+    this.props.store.dispatch(getUserInfo())
   }
 
   render () {

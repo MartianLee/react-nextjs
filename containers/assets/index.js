@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import React from 'react'
 import { loadProductDetailData } from '../../actions'
 import ProductPage from '../../components/products/productPage'
+import Summary from '../../components/assets/summary'
 import Menu from '../../components/assets/menu'
 import AssetsStatus from './assetStatus'
 
@@ -19,7 +20,6 @@ class AssetsContainer extends React.Component {
   render () {
     return (
       <div>
-        <Menu></Menu>
         <AssetsStatus/>
       </div>
     )

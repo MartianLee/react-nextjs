@@ -11,9 +11,9 @@ function CoinList ({
     return {}
   }
 
-  const List = styled.article`
+  const List = styled.div`
     margin-top: 20px;
-    width: 100%;
+    width: 30%;
     display: block;
   `
 
@@ -21,6 +21,7 @@ function CoinList ({
     text-align: center;
     &:hover {
       background-color: rgba(0, 0, 0, 0.25);
+      transition: all 300ms ease-out;
     }
   `
   const Button = styled.button`
@@ -32,17 +33,11 @@ function CoinList ({
   const Coin = styled.div`
     border: 1px solid black;
   `
-  console.log(coinList)
-
-  const clicked = (e) => {
-    const { name, value } = e.target
-  }
-
   return (
     <List>
-      CoinList
+      <h2>CoinList</h2>
       {!!coinList && coinList.length > 0 ? coinList.map((coin, index) => (
-        <CoinWrapper key={index} onClick={clicked} name={index} value={index}>
+        <CoinWrapper key={index} onClick={() => { coinSelected(index) }}>
           {/*<Coin coin={coin} />*/}
           {coin.symbol} {coin.korean_name}
         </CoinWrapper>
