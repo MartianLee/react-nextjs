@@ -284,9 +284,7 @@ function * getMetaCoinSaga (action) {
 
 function * loadAssetsSaga (action) {
   try {
-    yield call(beforeAction)
-    const state = yield select()
-    const token = yield state.auth.access
+    const token = yield call(beforeAction)
     const requestOptions = yield {
       method: 'GET',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }
@@ -301,7 +299,7 @@ function * loadAssetsSaga (action) {
 }
 
 function * beforeAction () {
-  console.log('beforeAction')
+  // console.log('beforeAction')
   const action = yield take('*')
   const state = yield select()
   if (!state.auth.access) {

@@ -106,3 +106,7 @@ export function updateUserInfoSuccess (user) {
 export function addTokenToStore (token) {
   return { type: userConstants.ADD_TOKEN_TO_STORE, token }
 }
+
+export function addReforCodeToStore (referCode) {
+  return { type: userConstants.ADD_REFER_CODE_TO_STORE, referCode }
+}

@@ -6,7 +6,7 @@ import withReduxSaga from 'next-redux-saga'
 
 import createStore from '../store'
 import getToken from '../util/getToken'
-import { getUserInfo, addTokenToStore } from '../actions'
+import {getUserInfo, addTokenToStore, addReforCodeToStore} from '../actions'
 import Message from "../components/message";
 import { getMetaCoin } from "../actions/metaActions"
 
@@ -24,6 +24,10 @@ class MyApp extends App {
   componentDidMount () {
     this.props.store.dispatch(getMetaCoin())
     this.props.store.dispatch(getUserInfo())
+    console.log(this.props.router.query.ref)
+    if(!!this.props.router.query.ref) {
+      this.props.store.dispatch(addReforCodeToStore(this.props.router.query.ref))
+    }
   }
 
   render () {

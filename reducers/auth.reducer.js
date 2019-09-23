@@ -1,11 +1,12 @@
 import { userConstants } from '../constants'
 
-export const initialState = { loggedIn: false, accessToken: '', sendingOtp: false }
+export const initialState = { loggedIn: false, accessToken: '', sendingOtp: false, friendReferCode: '' }
 
 export function auth (state = initialState, action) {
   switch (action.type) {
     case userConstants.LOGIN_REQUEST:
       return {
+        ...state,
         loggingIn: true,
         user: action.user
       }
@@ -21,6 +22,7 @@ export function auth (state = initialState, action) {
       return {}
     case userConstants.LOGOUT:
       return {
+        ...state,
         loggedIn: false,
         user: {},
         token: null
@@ -47,10 +49,16 @@ export function auth (state = initialState, action) {
     case userConstants.ADD_TOKEN_TO_STORE:
       if(!!action.token) {
         return {
+          ...state,
           loggedIn: true,
           access: action.token,
           // refresh: action.auth.refresh
         }
+      }
+      return
+    case userConstants.ADD_REFER_CODE_TO_STORE:
+      return {
+        friendReferCode: action.referCode
       }
     default:
       return state

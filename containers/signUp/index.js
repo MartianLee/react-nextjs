@@ -15,8 +15,10 @@ class SignUpContainer extends React.Component {
       password: '',
       password2: '',
       submitted: false,
+      referCode: props.auth.friendReferCode,
       loggingIn: false
     }
+    console.log('referCode : ' + props.auth.friendReferCode)
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -38,6 +40,12 @@ class SignUpContainer extends React.Component {
     }
   }
 
+  componentWillUpdate (prevProps, prevState) {
+    if (this.props.auth.friendReferCode && !prevState.referCode) {
+      this.setState({ referCode: this.props.auth.friendReferCode})
+    }
+  }
+
   render () {
     return (
       <div>
@@ -45,49 +53,41 @@ class SignUpContainer extends React.Component {
         <form name="form" onSubmit={this.handleSubmit}>
           <div className={'form-group' + (this.submitted && !this.username ? ' has-error' : '')}>
             <label htmlFor="username">Username</label>
-            <input type="text" className="form-control" name="username" value={this.username}
+            <input type="text" className="form-control" name="username" value={this.state.username}
               onChange={this.handleChange}/>
-            {this.submitted && !this.username &&
+            {this.state.submitted && !this.state.username &&
                         <div className="help-block">Username is required</div>
             }
           </div>
           <div className={'form-group' + (this.submitted && !this.password ? ' has-error' : '')}>
             <label htmlFor="password">Password</label>
-            <input type="password" className="form-control" name="password" value={this.password}
+            <input type="password" className="form-control" name="password" value={this.state.password}
               onChange={this.handleChange}/>
-            {this.submitted && !this.password &&
+            {this.state.submitted && !this.state.password &&
                         <div className="help-block">Password is required</div>
             }
           </div>
           <div className={'form-group' + (this.submitted && !this.password2 ? ' has-error' : '')}>
             <label htmlFor="password">Password Again</label>
-            <input type="password" className="form-control" name="password2" value={this.password2}
+            <input type="password" className="form-control" name="password2" value={this.state.password2}
               onChange={this.handleChange}/>
-            {this.submitted && !this.password2 &&
+            {this.state.submitted && !this.state.password2 &&
                         <div className="help-block">Password is required</div>
             }
+          </div>
+          <div className={'form-group'}>
+            <label htmlFor="refer_code">Referal Code (optional)</label>
+            <input type="refer_code" className="form-control" name="referCode" value={this.state.referCode}
+                   onChange={this.handleChange}/>
           </div>
           <div className="form-group">
             <button className="btn btn-primary">Sign Up</button>
             {this.loggingIn &&
-                        <img
-                          src="image"/>
+              <img
+                src="image"/>
             }
           </div>
         </form>
-        <style>{` 
-          article {
-            margin-top: 20px;
-            width: 100%;
-          }
-          .card {
-           flex: 0 1 calc(25% - 1em);
-           display: block;
-          }
-          .description {
-            margin-top: 5px;
-          }
-        `}</style>
       </div>
     )
   }
