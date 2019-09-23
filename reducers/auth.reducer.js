@@ -32,8 +32,7 @@ export function auth (state = initialState, action) {
         otpStatus: action.otp.status
       }
     case userConstants.GET_USER_INFO_SUCCESS:
-      console.log(action.user)
-      if(action.user !== '') {
+      if(action.user && action.user.code !== 'token_not_valid') {
         return {
           ...state,
           loggedIn: true,

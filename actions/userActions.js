@@ -79,8 +79,8 @@ export function sendOtpSuccess () {
   return { type: userConstants.SEND_OTP_SUCCESS }
 }
 
-export function getUserInfo (token) {
-  return { type: userConstants.GET_USER_INFO, token }
+export function getUserInfo () {
+  return { type: userConstants.GET_USER_INFO }
 }
 
 export function getUserInfoSuccess (user) {

@@ -18,7 +18,7 @@ class VerifyPassword extends React.Component {
 
   render () {
     return (
-      <HeaderLayout auth={this.props.auth}>
+      <HeaderLayout>
         <Header title={'Squared'}/>
         {this.props.query.code}
         <PasswordUpdateContainer code={this.props.query.code} ></PasswordUpdateContainer>

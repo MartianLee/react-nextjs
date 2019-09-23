@@ -29,11 +29,11 @@ class AssetsStatus extends React.Component {
   }
 
   componentDidMount () {
-    this.props.dispatch(loadAssets(this.props.auth.access))
+    this.props.dispatch(loadAssets())
   }
 
   getAsset = () => {
-    this.props.dispatch(loadAssets(this.props.auth.access))
+    this.props.dispatch(loadAssets())
   }
 
   coinSelected = (value) => {

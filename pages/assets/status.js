@@ -15,6 +15,7 @@ class Assets extends React.Component {
   }
 
   componentDidMount () {
+    // console.log(this.store)
     // if(!this.props.auth.loggedIn) {
     //   errorMessage('You have to login !')
     //   Router.push('/')
@@ -22,7 +23,6 @@ class Assets extends React.Component {
   }
 
   render () {
-    console.log(this.props)
     return (
       <HeaderLayout>
         <Header title={'Squared'}/>

@@ -29,7 +29,6 @@ function CoinStatus ({
       margin-right: 5%;
     }
    `
-  console.log(balanceList[selectedCoin])
   return (
     <CoinStatus>
       <StatusHeader>

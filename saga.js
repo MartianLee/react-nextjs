@@ -1,6 +1,6 @@
 /* global fetch */
 
-import { all, call, delay, put, cancel, take, takeLatest, takeEvery, select } from 'redux-saga/effects'
+import { all, call, delay, put, fork, cancel, take, takeLatest, takeEvery, select } from 'redux-saga/effects'
 import es6promise from 'es6-promise'
 import 'isomorphic-unfetch'
 
@@ -39,13 +39,6 @@ function * runClockSaga () {
   //   yield delay(1000)
   // }
 }
-
-// function * showaAlarmSaga (action) {
-//   yield take(alarmConstants.SHOW_ALARM)
-//   yield put(showAlarm(action.content))
-//   yield delay(2000)
-//   yield put(closeAlarm()))
-// }
 
 function * loadDataSaga () {
   try {
@@ -195,7 +188,7 @@ function * userVerificationSignupSaga (action) {
 function * loadUserInfoSaga (action) {
   try {
     const state = yield select()
-    const token = state.auth.access
+    const token = yield state.auth.access
     const requestOptions = {
       method: 'GET',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }
@@ -241,7 +234,7 @@ function * passwordUpdateSaga (action) {
 function * userInfoUpdateSaga (action) {
   try {
     const state = yield select()
-    const token = state.auth.access
+    const token = yield state.auth.access
     const requestOptions = {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
@@ -291,13 +284,14 @@ function * getMetaCoinSaga (action) {
 
 function * loadAssetsSaga (action) {
   try {
+    yield call(beforeAction)
     const state = yield select()
-    const token = state.auth.access
-    const requestOptions = {
+    const token = yield state.auth.access
+    const requestOptions = yield {
       method: 'GET',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }
     }
-    console.log(action.token)
+    yield call(console.log, ('loadAssetsSaga ' + action.token))
     const res = yield fetch(`${configConstants.API_URL}/v1/users/asset/`, requestOptions)
     const data = yield res.json()
     yield put(loadAssetsSuccess(data))
@@ -307,26 +301,26 @@ function * loadAssetsSaga (action) {
 }
 
 function * beforeAction () {
+  console.log('beforeAction')
   const action = yield take('*')
   const state = yield select()
   if (!state.auth.access) {
     const token = yield call(getToken)
-    console.log(token)
+    yield call(console.log, ('token', token))
     if (!!token && action.type !== userConstants.ADD_TOKEN_TO_STORE) {
+      yield call(console.log, ('when token added'))
       yield put(addTokenToStore(token))
     }
+    return token
   }
-  yield call(console.log, ('action', action))
-  yield call(console.log, ('state after', state))
+  return state.auth.access
+  // yield call(console.log, ('action', action))
+  // yield call(console.log, ('state after', state))
 }
 
-function * rootSaga () {
-  console.log('Saga Initialized')
-
-  yield takeEvery('*', beforeAction)
+function * actionSaga () {
   yield all([
     call(runClockSaga),
-    // takeLatest(alarmConstants.SHOW_ALARM, showaAlarmSaga),
     takeLatest(userConstants.SIGN_UP, userSignUpSaga),
     takeLatest(userConstants.LOGIN_REQUEST, userLoginSaga),
     takeLatest(userConstants.LOGOUT, userLogoutSaga),
@@ -343,8 +337,18 @@ function * rootSaga () {
     takeLatest(alertConstants.SUCCESS, alertSuccessSaga),
     takeLatest(alertConstants.ERROR, alertErrorSaga),
     takeLatest(metaConstants.GET_COIN, getMetaCoinSaga),
-    takeLatest(assetConstants.LOAD_ASSETS, loadAssetsSaga)
+    takeLatest(assetConstants.LOAD_ASSETS, loadAssetsSaga),
+    takeLatest('*', beforeAction),
   ])
+}
+
+function * rootSaga () {
+  console.log('Saga Initialized')
+  // while (true) {
+  //   yield call(beforeAction)
+  // }
+  yield takeEvery('*', beforeAction)
+  yield call(actionSaga)
 }
 
 export default rootSaga

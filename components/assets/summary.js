@@ -27,11 +27,9 @@ class SummaryAssets extends React.Component {
   }
 
   componentDidMount () {
-    console.log(this.props)
   }
 
   render () {
-    console.log(this.props)
     return (
       <Summary>
         <StaticsWrapper>
