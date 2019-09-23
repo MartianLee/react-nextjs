@@ -187,8 +187,7 @@ function * userVerificationSignupSaga (action) {
 
 function * loadUserInfoSaga (action) {
   try {
-    const state = yield select()
-    const token = yield state.auth.access
+    const token = yield call(beforeAction)
     const requestOptions = {
       method: 'GET',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }

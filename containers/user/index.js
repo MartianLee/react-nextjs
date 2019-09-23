@@ -50,6 +50,7 @@ class UserContainer extends React.Component {
     }
 
     render () {
+        console.log(this.props.auth.user)
         return (
             <div>
                 <div>
@@ -62,6 +63,9 @@ class UserContainer extends React.Component {
                     </p>
                     <p> Your wallet address is { this.props.wallet.address ? this.props.wallet.address : '' } </p>
                     <p> You have { this.props.wallet.balance ? this.props.wallet.balance : 0 } Satoshi in your wallet. </p>
+                </div>
+                <div>
+                    User Referral Code {this.props.auth.user ? `${this.props.auth.friendReferCode}` : ''}
                 </div>
                 <button onClick={this.changeForm}>
                     내 정보 수정하기

@@ -38,6 +38,7 @@ export function auth (state = initialState, action) {
         return {
           ...state,
           loggedIn: true,
+          friendReferCode: action.user.refer_code,
           user: {
             id: action.user.email,
             firstName: action.user.first_name,

@@ -18,7 +18,6 @@ class SignUpContainer extends React.Component {
       referCode: props.auth.friendReferCode,
       loggingIn: false
     }
-    console.log('referCode : ' + props.auth.friendReferCode)
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
