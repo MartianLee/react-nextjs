@@ -1,33 +1,32 @@
 import Link from 'next/link'
 import { connect } from 'react-redux'
+import styled from "styled-components";
+import React from "react";
+
+const HeaderDiv = styled.div`
+  margin-top: 52px;
+  width: 100%;
+`
+
+const Title = styled.div`
+  text-align: center;
+`
+
+const TitleText = styled.h1`
+  font-size: 4rem;
+`
 
 function Header ({
-  error,
-  lastUpdate,
-  light,
-  linkTo,
-  NavigateTo,
-  placeholderData,
   title
 }) {
   return (
-    <div>
-      <div className='title'>
-        <h1>{title}</h1>
-      </div>
-      <style jsx>{`
-          div {
-            margin-top: 52px;
-            width: 100%;
-          }
-          .title {
-              text-align: center;
-            }
-            h1 {
-              font-size: 4rem;
-            }
-        `}</style>
-    </div>
+    <HeaderDiv>
+      <Title>
+        <TitleText>
+          {title}
+        </TitleText>
+      </Title>
+    </HeaderDiv>
   )
 }
 
