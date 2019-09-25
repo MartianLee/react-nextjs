@@ -9,12 +9,21 @@ export function getBalanceSuccess (data) {
   data = JSON.parse(data)
   return { type: walletConstants.GET_BALANCE_SUCCESS, data }
 }
-export function createWallet (user) {
+
+export function getWalletAddress () {
+  return { type: walletConstants.GET_WALLET_ADDRESS }
+}
+
+export function getWalletAddressSuccess (data) {
+  // data = JSON.parse(data)
+  return { type: walletConstants.GET_WALLET_ADDRESS_SUCCESS, data }
+}
+
+export function createWallet () {
   return { type: walletConstants.CREATE_WALLET }
 }
 
 export function createWalletSuccess (data) {
-  data = JSON.parse(data)
   return { type: walletConstants.CREATE_WALLET_SUCCESS, data }
 }
 

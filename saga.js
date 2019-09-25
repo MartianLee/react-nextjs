@@ -24,7 +24,8 @@ import {
   successMessage,
   clearMessage,
   loadAssetsSuccess,
-  addTokenToStore
+  addTokenToStore,
+  getWalletAddressSuccess
 } from './actions'
 import Router from 'next/router'
 import {getMetaCoinSuccess} from "./actions/metaActions"
@@ -136,12 +137,14 @@ function * getWalletBalanceSaga (action) {
 
 function * createWalletSaga (action) {
   try {
+    const state = yield select()
+    const token = yield state.auth.access
     const requestOptions = {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(action.user)
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+      body: JSON.stringify({"coin_type": "tbtc"})
     }
-    const res = yield fetch(`${configConstants.API_URL}/wallets/create/`, requestOptions)
+    const res = yield fetch(`${configConstants.API_URL}/v1/transaction/address/`, requestOptions)
     const data = yield res.json()
     yield put(createWalletSuccess(data))
   } catch (err) {
@@ -288,10 +291,27 @@ function * loadAssetsSaga (action) {
       method: 'GET',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }
     }
-    yield call(console.log, ('loadAssetsSaga ' + action.token))
+    yield call(console.log, ('loadAssetsSaga ' + token))
     const res = yield fetch(`${configConstants.API_URL}/v1/users/asset/`, requestOptions)
     const data = yield res.json()
     yield put(loadAssetsSuccess(data))
+  } catch (err) {
+    yield put(failure(err))
+  }
+}
+
+function * getWalletAddressSaga () {
+  try {
+    const token = yield call(beforeAction)
+    const requestOptions = yield {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }
+    }
+    yield call(console.log, ('loadAssetsSaga ' + token))
+    const res = yield fetch(`${configConstants.API_URL}/v1/transaction/address/?coin_type=tbtc`, requestOptions)
+    const data = yield res.json()
+    console.log(data)
+    yield put(getWalletAddressSuccess(data))
   } catch (err) {
     yield put(failure(err))
   }
@@ -331,6 +351,7 @@ function * actionSaga () {
     takeLatest(walletConstants.GET_BALANCE, getWalletBalanceSaga),
     takeLatest(walletConstants.CREATE_WALLET, createWalletSaga),
     takeLatest(walletConstants.SEND_COINS, sendCoinsSaga),
+    takeLatest(walletConstants.GET_WALLET_ADDRESS, getWalletAddressSaga),
     takeLatest(alertConstants.SUCCESS, alertSuccessSaga),
     takeLatest(alertConstants.ERROR, alertErrorSaga),
     takeLatest(metaConstants.GET_COIN, getMetaCoinSaga),

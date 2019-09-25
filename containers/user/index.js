@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { connect } from 'react-redux'
 import React from "react";
-import {getBalance, createWallet, sendCoins, loadProductDetailData, getUserInfo} from '../../actions';
+import {getBalance, createWallet, sendCoins, loadProductDetailData, getUserInfo, getWalletAddress} from '../../actions';
 import UserInfoForm from './UserInfoForm'
 
 class UserContainer extends React.Component {
@@ -26,7 +26,7 @@ class UserContainer extends React.Component {
     }
 
     createWallet() {
-        this.props.dispatch(createWallet(this.props.user))
+        this.props.dispatch(createWallet())
     }
 
     sendCoinToOtherWallet = () => {
@@ -47,6 +47,7 @@ class UserContainer extends React.Component {
 
     componentDidMount () {
         // this.getBalance()
+        this.props.dispatch(getWalletAddress())
     }
 
     render () {
@@ -73,9 +74,10 @@ class UserContainer extends React.Component {
                 <br/>
                 { this.state.isItModifying }
                 { !!this.state.isItModifying ? <UserInfoForm></UserInfoForm> : '' }
-                <button onClick={() => this.props.dispatch(createWallet(this.props.user))}>
+                { !!this.props.wallet.address ? '' :
+                  <button onClick={() => this.props.dispatch(createWallet(this.props.user))}>
                     Create Wallet
-                </button>
+                  </button>}
                 <div>
                     To :
                     <input value={this.addressTo} onChange={this.handleChange} name='address'/>
