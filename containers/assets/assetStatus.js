@@ -16,7 +16,10 @@ class AssetsStatus extends React.Component {
     super(props)
 
     this.state = {
-      selectedCoin: 0
+      selectedCoin: 0,
+      sendCoinOpened: false,
+      sendAmount: 0,
+      sendAddress: ''
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -38,6 +41,14 @@ class AssetsStatus extends React.Component {
 
   coinSelected = (value) => {
     this.setState({ selectedCoin: value })
+  }
+
+  sendCoinViewOpened = () => {
+    this.setState({ sendCoinOpened: !this.state.sendCoinOpened })
+  }
+
+  sendCoin = () => {
+    this.props.dispatch(sendCoin())
   }
 
   render () {

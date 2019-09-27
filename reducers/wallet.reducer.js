@@ -27,7 +27,8 @@ export function wallet (state = initialState, action) {
       return {
         ...state,
         sendingCoins: false,
-        data: action.data
+        data: action.data,
+        history: action.data.history
       }
     case walletConstants.GET_WALLET_ADDRESS_SUCCESS:
       return {
